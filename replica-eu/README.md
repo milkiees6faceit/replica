@@ -41,6 +41,28 @@ npm run dev
 
 Open `http://localhost:3000/en`.
 
+## GitHub Pages Static HTML
+
+This project can export static HTML for GitHub Pages. API routes, Stripe webhooks, NextAuth server auth, and other server-side features are disabled in the static export, but the storefront and crypto checkout UI are generated as HTML/CSS/JS.
+
+```bash
+npm run build:pages
+```
+
+The static site is generated in:
+
+```text
+replica-eu/out
+```
+
+For the repository `milkiees6faceit/replica`, the export uses the project base path `/replica`, so GitHub Pages can serve it at:
+
+```text
+https://milkiees6faceit.github.io/replica/
+```
+
+The included GitHub Actions workflow `.github/workflows/pages.yml` builds and deploys `replica-eu/out` automatically from the `main` branch.
+
 Seed admin:
 
 ```text
