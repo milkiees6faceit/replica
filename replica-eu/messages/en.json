@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "catalog": "Catalog",
+    "about": "About",
+    "faq": "FAQ",
+    "legal": "Legal"
+  },
+  "home": {
+    "hero": "Preorder curated fashion across Europe",
+    "cta": "Shop preorders"
+  }
+}

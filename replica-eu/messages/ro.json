@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "catalog": "Catalog",
+    "about": "Despre",
+    "faq": "FAQ",
+    "legal": "Legal"
+  },
+  "home": {
+    "hero": "Precomanda fashion curatat in Europa",
+    "cta": "Vezi precomenzi"
+  }
+}
