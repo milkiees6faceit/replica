@@ -4,7 +4,7 @@ const faqs = [
   ["Is Replica EU selling counterfeit goods?", "No. Listings must be independent inspired-style products or explicitly authorized goods."],
   ["When is my preorder confirmed?", "After Stripe payment succeeds, the order status changes from pending to paid."],
   ["Can I cancel?", "Cancellation windows depend on whether the supplier batch has already closed."],
-  ["Where do you ship?", "The checkout is designed for EU countries, with shipping options calculated per address."]
+  ["Where do you ship?", "The checkout supports selected countries only, with Germany selected by default."]
 ];
 
 export default function FAQPage() {

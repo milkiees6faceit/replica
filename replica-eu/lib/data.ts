@@ -18,36 +18,6 @@ export type Product = {
   supplier: string;
 };
 
-export const euCountries = [
-  "Austria",
-  "Belgium",
-  "Bulgaria",
-  "Croatia",
-  "Cyprus",
-  "Czechia",
-  "Denmark",
-  "Estonia",
-  "Finland",
-  "France",
-  "Germany",
-  "Greece",
-  "Hungary",
-  "Ireland",
-  "Italy",
-  "Latvia",
-  "Lithuania",
-  "Luxembourg",
-  "Malta",
-  "Netherlands",
-  "Poland",
-  "Portugal",
-  "Romania",
-  "Slovakia",
-  "Slovenia",
-  "Spain",
-  "Sweden"
-];
-
 export const categories = ["Outerwear", "Knitwear", "Tailoring", "Footwear", "Accessories"];
 
 export const products: Product[] = [
@@ -120,7 +90,7 @@ export const products: Product[] = [
     name: "Cashmere blend knit",
     category: "Knitwear",
     gender: "Men",
-    country: "Portugal",
+    country: "Spain",
     leadTime: "14-21 days",
     price: 165,
     deposit: 50,
@@ -133,7 +103,7 @@ export const products: Product[] = [
       "https://images.unsplash.com/photo-1516826957135-700dedea698c?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1506629905607-d405d7d3b0d2?auto=format&fit=crop&w=1200&q=80"
     ],
-    supplier: "Verified Porto knit studio"
+    supplier: "Verified Barcelona knit studio"
   }
 ];
 

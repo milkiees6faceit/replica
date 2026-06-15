@@ -1,5 +1,6 @@
 import { PrismaClient, Role } from "@prisma/client";
 import { hash } from "bcryptjs";
+import { DEFAULT_COUNTRY, SUPPORTED_COUNTRIES } from "../lib/countries";
 
 const prisma = new PrismaClient();
 
@@ -26,7 +27,7 @@ async function main() {
   const supplier = await prisma.supplier.create({
     data: {
       name: "Verified Bucharest atelier",
-      country: "Romania",
+      country: DEFAULT_COUNTRY,
       status: "verified",
       notes: "Independent supplier, no third-party luxury branding."
     }
@@ -45,7 +46,7 @@ async function main() {
       depositCents: 9600,
       estimatedDelivery: "Late February 2027",
       leadTime: "21-28 days",
-      deliveryCountries: ["Romania", "Germany", "France", "Italy", "Spain"],
+      deliveryCountries: [...SUPPORTED_COUNTRIES],
       categoryId: category.id,
       supplierId: supplier.id,
       images: {
@@ -85,7 +86,7 @@ async function main() {
       line1: "1 Preorder Street",
       city: "Bucharest",
       postalCode: "010001",
-      country: "Romania"
+      country: DEFAULT_COUNTRY
     }
   });
 

@@ -1,5 +1,6 @@
 import { SlidersHorizontal } from "lucide-react";
-import { categories, euCountries } from "@/lib/data";
+import { DEFAULT_COUNTRY, SUPPORTED_COUNTRIES } from "@/lib/countries";
+import { categories } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -40,9 +41,8 @@ export function CatalogFilters() {
         </div>
         <label className="grid gap-2 text-sm font-bold">
           Delivery country
-          <select className="h-11 rounded-full border bg-muted px-4">
-            <option>Any EU country</option>
-            {euCountries.map((country) => (
+          <select className="h-11 rounded-full border bg-muted px-4" defaultValue={DEFAULT_COUNTRY}>
+            {SUPPORTED_COUNTRIES.map((country) => (
               <option key={country}>{country}</option>
             ))}
           </select>

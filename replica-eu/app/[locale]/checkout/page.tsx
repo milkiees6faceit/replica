@@ -1,7 +1,7 @@
 import { CryptoCheckout } from "@/components/checkout/crypto-checkout";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { euCountries } from "@/lib/data";
+import { DEFAULT_COUNTRY, SUPPORTED_COUNTRIES } from "@/lib/countries";
 
 export const metadata = { title: "Checkout" };
 
@@ -26,9 +26,9 @@ export default function CheckoutPage() {
               </div>
             ))}
             <label className="grid gap-2 text-sm font-bold">
-              EU country
-              <select className="h-11 rounded-full border bg-muted px-4">
-                {euCountries.map((country) => (
+              Shipping country
+              <select className="h-11 rounded-full border bg-muted px-4" defaultValue={DEFAULT_COUNTRY} required>
+                {SUPPORTED_COUNTRIES.map((country) => (
                   <option key={country}>{country}</option>
                 ))}
               </select>

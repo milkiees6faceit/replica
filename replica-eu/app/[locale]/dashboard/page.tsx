@@ -33,7 +33,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
             <p>Email notifications: enabled</p>
-            <p>Default country: Romania</p>
+            <p>Default country: Germany</p>
             <p>Preferred language: English</p>
           </CardContent>
         </Card>
