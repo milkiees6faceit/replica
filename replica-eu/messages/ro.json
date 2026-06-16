@@ -256,6 +256,7 @@
     "variant": "Varianta",
     "network": "Retea",
     "telegram": "Telegram",
-    "amount": "Suma"
+    "amount": "Suma",
+    "delivery": "Livrare"
   }
 }

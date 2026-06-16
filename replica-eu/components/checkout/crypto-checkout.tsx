@@ -40,7 +40,14 @@ export function CryptoCheckout({
   productName = "Replica EU preorder",
   selectedSize = "",
   selectedColor = "",
-  estimatedDelivery = ""
+  estimatedDelivery = "",
+  shipping = {
+    name: "",
+    country: "",
+    city: "",
+    postal: "",
+    address: ""
+  }
 }: {
   amountDue?: number;
   initialUsername?: string;
@@ -48,6 +55,13 @@ export function CryptoCheckout({
   selectedSize?: string;
   selectedColor?: string;
   estimatedDelivery?: string;
+  shipping?: {
+    name: string;
+    country: string;
+    city: string;
+    postal: string;
+    address: string;
+  };
 }) {
   const t = useTranslations("checkout");
   const [profileUsername, setProfileUsername] = useState(initialUsername);
@@ -84,6 +98,11 @@ export function CryptoCheckout({
       product: productName,
       size: selectedSize,
       color: selectedColor,
+      shippingName: shipping.name,
+      shippingCountry: shipping.country,
+      shippingCity: shipping.city,
+      shippingPostal: shipping.postal,
+      shippingAddress: shipping.address,
       telegramUsername,
       username: profileUsername,
       paymentNetwork: selectedPayment.network,

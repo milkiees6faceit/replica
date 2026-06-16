@@ -256,6 +256,7 @@
     "variant": "Вариант",
     "network": "Сеть",
     "telegram": "Telegram",
-    "amount": "Сумма"
+    "amount": "Сумма",
+    "delivery": "Доставка"
   }
 }

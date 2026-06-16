@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { CryptoCheckout } from "@/components/checkout/crypto-checkout";
 import { Input } from "@/components/ui/input";
@@ -17,6 +18,16 @@ function searchParamsToObject(searchParams: URLSearchParams) {
 export function CheckoutContent() {
   const t = useTranslations("checkout");
   const searchParams = useSearchParams();
+  const [shipping, setShipping] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    postal: "",
+    country: DEFAULT_COUNTRY
+  });
   const selection = getProductSelection(searchParamsToObject(searchParams));
   const { product, size, color } = selection;
   const fields = [
@@ -37,12 +48,22 @@ export function CheckoutContent() {
           {fields.map(([id, label]) => (
             <div key={id} className={id === "address" ? "grid gap-2 sm:col-span-2" : "grid gap-2"}>
               <Label>{label}</Label>
-              <Input />
+              <Input
+                value={shipping[id as keyof typeof shipping]}
+                onChange={(event) => setShipping((current) => ({ ...current, [id]: event.target.value }))}
+                required
+                type={id === "email" ? "email" : id === "phone" ? "tel" : "text"}
+              />
             </div>
           ))}
           <label className="grid gap-2 text-sm font-bold">
             {t("shippingCountry")}
-            <select className="h-11 rounded-full border bg-muted px-4" defaultValue={DEFAULT_COUNTRY} required>
+            <select
+              className="h-11 rounded-full border bg-muted px-4"
+              value={shipping.country}
+              onChange={(event) => setShipping((current) => ({ ...current, country: event.target.value }))}
+              required
+            >
               {SUPPORTED_COUNTRIES.map((country) => (
                 <option key={country}>{country}</option>
               ))}
@@ -81,6 +102,13 @@ export function CheckoutContent() {
           selectedSize={size}
           selectedColor={color.name}
           estimatedDelivery={product.estimatedDelivery}
+          shipping={{
+            name: `${shipping.firstName} ${shipping.lastName}`.trim(),
+            country: shipping.country,
+            city: shipping.city,
+            postal: shipping.postal,
+            address: shipping.address
+          }}
         />
       </div>
     </div>

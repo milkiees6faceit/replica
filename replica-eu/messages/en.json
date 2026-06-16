@@ -256,6 +256,7 @@
     "variant": "Variant",
     "network": "Network",
     "telegram": "Telegram",
-    "amount": "Amount"
+    "amount": "Amount",
+    "delivery": "Delivery"
   }
 }

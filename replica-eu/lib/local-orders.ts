@@ -3,6 +3,11 @@ export type LocalPreorder = {
   product: string;
   size: string;
   color: string;
+  shippingName: string;
+  shippingCountry: string;
+  shippingCity: string;
+  shippingPostal: string;
+  shippingAddress: string;
   telegramUsername: string;
   username: string;
   paymentNetwork: string;
