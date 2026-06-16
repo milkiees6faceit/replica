@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Mail, Send, UserRound } from "lucide-react";
+import { LogOut, Mail, Send, ShieldCheck, UserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -93,7 +93,15 @@ export function DashboardProfile({ locale }: { locale: Locale }) {
           {profile.telegram || t("unknown")}
         </p>
         {profile.role === "admin" ? (
-          <p className="rounded-2xl bg-black p-3 text-sm font-black text-white">{t("adminAccount")}</p>
+          <div className="grid gap-2 rounded-2xl bg-black p-3 text-sm font-black text-white">
+            <span>{t("adminAccount")}</span>
+            <Button asChild variant="secondary" className="w-full bg-white text-black hover:bg-[#A29BFE]">
+              <Link href={`/${locale}/admin`}>
+                <ShieldCheck className="h-4 w-4" />
+                Admin
+              </Link>
+            </Button>
+          </div>
         ) : null}
         <Button type="button" variant="outline" className="w-full" onClick={logout}>
           <LogOut className="h-4 w-4" />

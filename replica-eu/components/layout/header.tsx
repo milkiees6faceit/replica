@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Home, Search, ShoppingBag, Sparkles, UserRound } from "lucide-react";
+import { Home, Search, ShieldCheck, ShoppingBag, Sparkles, UserRound } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { AccountButton } from "@/components/auth/account-button";
 import { Button } from "@/components/ui/button";
@@ -9,12 +10,31 @@ import { localeNames, locales, type Locale } from "@/lib/i18n";
 
 export function Header({ locale }: { locale: Locale }) {
   const t = useTranslations("nav");
+  const [isAdmin, setIsAdmin] = useState(false);
   const links = [
     ["catalog", t("catalog")],
     ["about", t("about")],
     ["faq", t("faq")],
-    ["legal", t("legal")]
+    ["legal", t("legal")],
+    ...(isAdmin ? [["admin", t("admin")]] : [])
   ];
+  const mobileLinks = [
+    [Home, t("home"), `/${locale}`],
+    [Search, t("shop"), `/${locale}/catalog`],
+    [Sparkles, t("drops"), `/${locale}/catalog?status=limited`],
+    ...(isAdmin ? [[ShieldCheck, t("admin"), `/${locale}/admin`]] : []),
+    [ShoppingBag, t("bag"), `/${locale}/cart`]
+  ];
+
+  useEffect(() => {
+    function syncRole() {
+      setIsAdmin(window.localStorage.getItem("replica-eu-role") === "admin");
+    }
+
+    syncRole();
+    window.addEventListener("storage", syncRole);
+    return () => window.removeEventListener("storage", syncRole);
+  }, []);
 
   return (
     <>
@@ -61,13 +81,11 @@ export function Header({ locale }: { locale: Locale }) {
           </div>
         </div>
       </header>
-      <nav className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-4 rounded-[28px] border border-black/10 bg-white/92 p-2 shadow-[0_18px_60px_rgba(0,0,0,0.16)] backdrop-blur-xl md:hidden">
-        {[
-          [Home, t("home"), `/${locale}`],
-          [Search, t("shop"), `/${locale}/catalog`],
-          [Sparkles, t("drops"), `/${locale}/catalog?status=limited`],
-          [ShoppingBag, t("bag"), `/${locale}/cart`]
-        ].map(([Icon, label, href]) => (
+      <nav
+        className="fixed inset-x-3 bottom-3 z-50 grid rounded-[28px] border border-black/10 bg-white/92 p-2 shadow-[0_18px_60px_rgba(0,0,0,0.16)] backdrop-blur-xl md:hidden"
+        style={{ gridTemplateColumns: `repeat(${mobileLinks.length}, minmax(0, 1fr))` }}
+      >
+        {mobileLinks.map(([Icon, label, href]) => (
           <Link key={label as string} href={href as string} className="flex flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] font-black text-muted-foreground active:bg-muted">
             <Icon className="h-5 w-5" />
             {label as string}
