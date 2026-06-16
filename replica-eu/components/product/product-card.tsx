@@ -13,6 +13,7 @@ import type { Locale } from "@/lib/i18n";
 import type { Product } from "@/lib/data";
 
 function hypeBadge(product: Product) {
+  if (product.badge) return product.badge;
   if (product.status === "Closing soon") return "LIMITED";
   if (product.status === "Sold out") return "SOLD";
   if (product.category === "Footwear") return "HOT";

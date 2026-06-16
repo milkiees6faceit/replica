@@ -1,4 +1,4 @@
-import type { Product, ProductStatus } from "@/lib/data";
+import type { Product, ProductBadge, ProductStatus } from "@/lib/data";
 
 export const LOCAL_PRODUCTS_KEY = "replica-eu-admin-products";
 
@@ -11,6 +11,7 @@ export type LocalProductInput = {
   price: number;
   deposit: number;
   status: ProductStatus;
+  badge: ProductBadge;
   description: string;
   estimatedDelivery: string;
   sizes: string[];
@@ -55,6 +56,7 @@ export function saveLocalProduct(input: LocalProductInput) {
     price: input.price,
     deposit: input.deposit,
     status: input.status,
+    badge: input.badge,
     description: input.description,
     estimatedDelivery: input.estimatedDelivery,
     sizes: input.sizes,

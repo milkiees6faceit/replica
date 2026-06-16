@@ -1,4 +1,5 @@
 export type ProductStatus = "Available for preorder" | "Closing soon" | "Sold out";
+export type ProductBadge = "NEW" | "HOT" | "TRENDING NOW" | "LIMITED" | "DROP";
 
 export type Product = {
   id: string;
@@ -11,6 +12,7 @@ export type Product = {
   price: number;
   deposit: number;
   status: ProductStatus;
+  badge?: ProductBadge;
   description: string;
   estimatedDelivery: string;
   sizes: string[];

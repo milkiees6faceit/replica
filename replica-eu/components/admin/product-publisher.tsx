@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { CheckCircle2, Plus, UploadCloud } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { CheckCircle2, ImagePlus, Loader2, Plus, UploadCloud } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label";
 import { DEFAULT_COUNTRY, SUPPORTED_COUNTRIES } from "@/lib/countries";
 import { saveLocalProduct } from "@/lib/local-products";
 import { saveSupabaseProduct } from "@/lib/supabase-products";
-import { categories, type Product, type ProductStatus } from "@/lib/data";
+import { categories, type Product, type ProductBadge, type ProductStatus } from "@/lib/data";
+import { uploadFiles } from "@/lib/uploadthing";
 
 const fallbackImage = "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1200&q=80";
 
@@ -39,12 +40,68 @@ export function ProductPublisher() {
   const t = useTranslations("admin");
   const [published, setPublished] = useState<Product | null>(null);
   const [notice, setNotice] = useState("");
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isPublishing, setIsPublishing] = useState(false);
   const categoryOptions = useMemo(() => Array.from(new Set(["Footwear", "Tops", ...categories])), []);
+
+  useEffect(() => {
+    if (!selectedImage) {
+      setPreviewUrl("");
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedImage);
+    setPreviewUrl(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedImage]);
+
+  function readFileAsDataUrl(file: File) {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result));
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function getProductImageUrl(file: File, accessToken: string) {
+    try {
+      setUploadProgress(1);
+      const [uploaded] = await uploadFiles("productImageUploader", {
+        files: [file],
+        headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined,
+        onUploadProgress: ({ progress }) => setUploadProgress(progress)
+      });
+
+      if (uploaded?.url) {
+        return uploaded.url;
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : t("imageUploadFallback");
+      setNotice(`${t("imageUploadFallback")} ${message}`);
+    }
+
+    return readFileAsDataUrl(file);
+  }
 
   async function publish(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setNotice("");
+    setIsPublishing(true);
     const formData = new FormData(event.currentTarget);
+    const productImage = selectedImage;
+
+    if (!productImage) {
+      setNotice(t("imageRequired"));
+      setIsPublishing(false);
+      return;
+    }
+
+    const accessToken = window.localStorage.getItem("replica-eu-supabase-access-token") ?? "";
+    const image = await getProductImageUrl(productImage, accessToken);
     const colors = parseList(String(formData.get("colors") ?? "Black")).map((name) => ({
       name,
       value: colorValue(name)
@@ -62,15 +119,15 @@ export function ProductPublisher() {
       price,
       deposit,
       status: String(formData.get("status") ?? "Available for preorder") as ProductStatus,
+      badge: String(formData.get("badge") ?? "NEW") as ProductBadge,
       description: String(formData.get("description") ?? "").trim(),
       estimatedDelivery: String(formData.get("estimatedDelivery") ?? "Upcoming delivery"),
       sizes: sizes.length ? sizes : ["S", "M", "L"],
       colors: colors.length ? colors : [{ name: "Black", value: "#111111" }],
-      image: String(formData.get("image") ?? "").trim() || fallbackImage,
+      image: image || fallbackImage,
       supplier: String(formData.get("supplier") ?? "Admin published supplier").trim()
     };
 
-    const accessToken = window.localStorage.getItem("replica-eu-supabase-access-token") ?? "";
     let product: Product;
 
     try {
@@ -84,6 +141,9 @@ export function ProductPublisher() {
 
     setPublished(product);
     event.currentTarget.reset();
+    setSelectedImage(null);
+    setUploadProgress(0);
+    setIsPublishing(false);
   }
 
   return (
@@ -136,6 +196,16 @@ export function ProductPublisher() {
           </select>
         </label>
         <label className="grid gap-2 text-sm font-bold">
+          {t("productBadge")}
+          <select name="badge" className="h-11 rounded-full border bg-muted px-4" defaultValue="HOT">
+            <option>NEW</option>
+            <option>HOT</option>
+            <option>TRENDING NOW</option>
+            <option>LIMITED</option>
+            <option>DROP</option>
+          </select>
+        </label>
+        <label className="grid gap-2 text-sm font-bold">
           {t("country")}
           <select name="country" className="h-11 rounded-full border bg-muted px-4" defaultValue={DEFAULT_COUNTRY}>
             {SUPPORTED_COUNTRIES.map((country) => (
@@ -159,9 +229,35 @@ export function ProductPublisher() {
           <Label>{t("estimatedDelivery")}</Label>
           <Input name="estimatedDelivery" placeholder="Late March 2027" required />
         </div>
-        <div className="grid gap-2 md:col-span-2">
-          <Label>{t("imageUrl")}</Label>
-          <Input name="image" type="url" placeholder={fallbackImage} />
+        <div className="grid gap-3 md:col-span-2">
+          <Label>{t("productImage")}</Label>
+          <label className="group grid cursor-pointer gap-3 rounded-[24px] border border-dashed border-black/20 bg-muted p-4 transition hover:border-[#6C5CE7] hover:bg-[#6C5CE7]/5 sm:grid-cols-[180px_1fr]">
+            <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-[20px] bg-white">
+              {previewUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={previewUrl} alt="" className="h-full w-full object-cover" />
+              ) : (
+                <ImagePlus className="h-8 w-8 text-muted-foreground" />
+              )}
+            </div>
+            <div className="flex flex-col justify-center gap-2">
+              <span className="text-base font-black">{selectedImage?.name ?? t("chooseImageFile")}</span>
+              <span className="text-sm font-semibold text-muted-foreground">{t("imageFileHelp")}</span>
+              {uploadProgress > 0 ? (
+                <span className="mt-2 h-2 overflow-hidden rounded-full bg-white">
+                  <span className="block h-full rounded-full bg-[#6C5CE7]" style={{ width: `${uploadProgress}%` }} />
+                </span>
+              ) : null}
+            </div>
+            <Input
+              name="imageFile"
+              type="file"
+              accept="image/*"
+              required
+              className="sr-only"
+              onChange={(event) => setSelectedImage(event.target.files?.[0] ?? null)}
+            />
+          </label>
         </div>
         <div className="grid gap-2 md:col-span-2">
           <Label>{t("supplier")}</Label>
@@ -171,8 +267,8 @@ export function ProductPublisher() {
           <Label>{t("description")}</Label>
           <Input name="description" placeholder="Brand-free inspired-style preorder item." required />
         </div>
-        <Button type="submit" variant="secondary" size="lg" className="md:col-span-2">
-          <Plus className="h-4 w-4" />
+        <Button type="submit" variant="secondary" size="lg" className="md:col-span-2" disabled={isPublishing}>
+          {isPublishing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
           {t("publish")}
         </Button>
       </form>

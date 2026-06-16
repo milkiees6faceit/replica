@@ -9,6 +9,7 @@ create table if not exists public.replica_products (
   price numeric(10,2) not null,
   deposit numeric(10,2) not null,
   status text not null,
+  badge text not null default 'NEW',
   description text not null,
   estimated_delivery text not null,
   sizes text[] not null default '{}',

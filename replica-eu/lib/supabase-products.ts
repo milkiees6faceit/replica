@@ -1,6 +1,6 @@
 import type { LocalProductInput } from "@/lib/local-products";
 import { createProductSlug } from "@/lib/local-products";
-import type { Product, ProductStatus } from "@/lib/data";
+import type { Product, ProductBadge, ProductStatus } from "@/lib/data";
 
 type SupabaseProductRow = {
   id: string;
@@ -13,6 +13,7 @@ type SupabaseProductRow = {
   price: number | string;
   deposit: number | string;
   status: ProductStatus;
+  badge?: ProductBadge;
   description: string;
   estimated_delivery: string;
   sizes: string[];
@@ -44,6 +45,7 @@ function mapSupabaseProduct(row: SupabaseProductRow): Product {
     price: Number(row.price),
     deposit: Number(row.deposit),
     status: row.status,
+    badge: row.badge,
     description: row.description,
     estimatedDelivery: row.estimated_delivery,
     sizes: row.sizes,
@@ -95,6 +97,7 @@ export async function saveSupabaseProduct(input: LocalProductInput, accessToken:
       price: input.price,
       deposit: input.deposit,
       status: input.status,
+      badge: input.badge,
       description: input.description,
       estimated_delivery: input.estimatedDelivery,
       sizes: input.sizes,
