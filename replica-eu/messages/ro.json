@@ -248,5 +248,14 @@
     "logout": "Iesi",
     "signedOut": "Autentifica-te pentru a vedea detaliile contului si identitatea precomenzii.",
     "unknown": "Nesetat"
+  },
+  "dashboard": {
+    "recentLocalOrders": "Comenzi de plata create",
+    "clearLocalOrders": "Sterge",
+    "pendingPayment": "Asteapta plata",
+    "variant": "Varianta",
+    "network": "Retea",
+    "telegram": "Telegram",
+    "amount": "Suma"
   }
 }

@@ -248,5 +248,14 @@
     "logout": "Выйти",
     "signedOut": "Войди, чтобы видеть данные аккаунта и идентификацию предзаказа.",
     "unknown": "Не указано"
+  },
+  "dashboard": {
+    "recentLocalOrders": "Созданные заказы на оплату",
+    "clearLocalOrders": "Очистить",
+    "pendingPayment": "Ожидает оплату",
+    "variant": "Вариант",
+    "network": "Сеть",
+    "telegram": "Telegram",
+    "amount": "Сумма"
   }
 }

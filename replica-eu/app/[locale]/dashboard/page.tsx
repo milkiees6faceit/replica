@@ -1,5 +1,6 @@
 import { orders } from "@/lib/data";
 import { DashboardProfile } from "@/components/auth/dashboard-profile";
+import { LocalPreorders } from "@/components/dashboard/local-preorders";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
@@ -17,6 +18,7 @@ export default function DashboardPage({ params }: { params: { locale: Locale } }
       <h1 className="font-display text-5xl">{t("myPreorders")}</h1>
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_320px]">
         <div className="grid gap-4">
+          <LocalPreorders />
           {orders.map((order) => (
             <Card key={order.id}>
               <CardHeader className="flex-row items-start justify-between gap-4">

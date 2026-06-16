@@ -248,5 +248,14 @@
     "logout": "Log out",
     "signedOut": "Sign in to see your account details and preorder identity.",
     "unknown": "Not set"
+  },
+  "dashboard": {
+    "recentLocalOrders": "Created payment orders",
+    "clearLocalOrders": "Clear",
+    "pendingPayment": "Pending payment",
+    "variant": "Variant",
+    "network": "Network",
+    "telegram": "Telegram",
+    "amount": "Amount"
   }
 }

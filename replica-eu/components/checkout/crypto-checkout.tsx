@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { saveLocalPreorder } from "@/lib/local-orders";
 import { formatPrice } from "@/lib/utils";
 
 type PaymentMethod = {
@@ -33,7 +34,21 @@ const paymentMethods: PaymentMethod[] = [
   }
 ];
 
-export function CryptoCheckout({ amountDue = 320, initialUsername = "" }: { amountDue?: number; initialUsername?: string }) {
+export function CryptoCheckout({
+  amountDue = 320,
+  initialUsername = "",
+  productName = "Replica EU preorder",
+  selectedSize = "",
+  selectedColor = "",
+  estimatedDelivery = ""
+}: {
+  amountDue?: number;
+  initialUsername?: string;
+  productName?: string;
+  selectedSize?: string;
+  selectedColor?: string;
+  estimatedDelivery?: string;
+}) {
   const t = useTranslations("checkout");
   const [profileUsername, setProfileUsername] = useState(initialUsername);
   const [telegramUsername, setTelegramUsername] = useState("");
@@ -61,8 +76,24 @@ export function CryptoCheckout({ amountDue = 320, initialUsername = "" }: { amou
 
   function createOrder(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const nextOrderNumber = `RE-${Date.now().toString().slice(-7)}`;
     window.localStorage.setItem("replica-eu-username", profileUsername);
-    setOrderNumber(`RE-${Date.now().toString().slice(-7)}`);
+    window.localStorage.setItem("replica-eu-telegram", telegramUsername);
+    saveLocalPreorder({
+      id: nextOrderNumber,
+      product: productName,
+      size: selectedSize,
+      color: selectedColor,
+      telegramUsername,
+      username: profileUsername,
+      paymentNetwork: selectedPayment.network,
+      paymentAddress: selectedPayment.address,
+      amountDue,
+      status: "pending",
+      eta: estimatedDelivery,
+      createdAt: new Date().toISOString()
+    });
+    setOrderNumber(nextOrderNumber);
   }
 
   return (

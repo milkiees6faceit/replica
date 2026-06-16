@@ -75,7 +75,13 @@ export function CheckoutContent() {
             </div>
           </div>
         </section>
-        <CryptoCheckout amountDue={product.price} />
+        <CryptoCheckout
+          amountDue={product.price}
+          productName={product.name}
+          selectedSize={size}
+          selectedColor={color.name}
+          estimatedDelivery={product.estimatedDelivery}
+        />
       </div>
     </div>
   );
