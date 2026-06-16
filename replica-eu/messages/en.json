@@ -88,6 +88,10 @@
     "title": "Confirm delivery and payment details.",
     "shipping": "Shipping address",
     "shippingCountry": "Shipping country",
+    "orderReview": "Order review",
+    "size": "Size",
+    "color": "Color",
+    "estimatedDelivery": "Estimated delivery",
     "fields": {
       "firstName": "First name",
       "lastName": "Last name",
@@ -134,7 +138,9 @@
   },
   "cart": {
     "title": "Cart",
-    "sizeDeposit": "Size M / Deposit payment / {delivery}",
+    "size": "Size",
+    "color": "Color",
+    "depositPayment": "Deposit payment / {delivery}",
     "remove": "Remove",
     "summary": "Order summary",
     "subtotal": "Subtotal",

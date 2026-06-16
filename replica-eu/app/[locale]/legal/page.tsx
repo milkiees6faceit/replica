@@ -1,8 +1,11 @@
 import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/lib/i18n";
 
 export const metadata = { title: "Legal Disclaimer" };
 
-export default function LegalPage() {
+export default function LegalPage({ params }: { params: { locale: Locale } }) {
+  setRequestLocale(params.locale);
   const t = useTranslations("pages");
 
   return (

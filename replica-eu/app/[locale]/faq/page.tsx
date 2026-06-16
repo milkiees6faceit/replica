@@ -1,8 +1,11 @@
 import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/lib/i18n";
 
 export const metadata = { title: "FAQ" };
 
-export default function FAQPage() {
+export default function FAQPage({ params }: { params: { locale: Locale } }) {
+  setRequestLocale(params.locale);
   const t = useTranslations("faq");
   const faqs = [
     [t("q1"), t("a1")],

@@ -2,10 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/lib/i18n";
 
 export const metadata = { title: "Contact" };
 
-export default function ContactPage() {
+export default function ContactPage({ params }: { params: { locale: Locale } }) {
+  setRequestLocale(params.locale);
   const t = useTranslations("pages");
 
   return (

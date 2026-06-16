@@ -2,6 +2,7 @@ import { CatalogFilters } from "@/components/product/catalog-filters";
 import { ProductCard } from "@/components/product/product-card";
 import { products } from "@/lib/data";
 import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/lib/i18n";
 
 export const metadata = {
@@ -9,6 +10,7 @@ export const metadata = {
 };
 
 export default function CatalogPage({ params }: { params: { locale: Locale } }) {
+  setRequestLocale(params.locale);
   const t = useTranslations("catalog");
 
   return (

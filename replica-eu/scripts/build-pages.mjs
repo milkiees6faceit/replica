@@ -16,7 +16,9 @@ function run(command, args) {
   });
 
   if (result.status !== 0) {
-    process.exit(result.status ?? 1);
+    const error = new Error(`${command} ${args.join(" ")} failed`);
+    error.exitCode = result.status ?? 1;
+    throw error;
   }
 }
 
@@ -43,6 +45,9 @@ try {
   if (existsSync(outDir)) {
     writeFileSync(join(outDir, ".nojekyll"), "");
   }
+} catch (error) {
+  process.exitCode = error.exitCode ?? 1;
+  console.error(error.message);
 } finally {
   if (existsSync(disabledApiDir) && !existsSync(apiDir)) {
     renameSync(disabledApiDir, apiDir);

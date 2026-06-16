@@ -1,22 +1,18 @@
-import { CryptoCheckout } from "@/components/checkout/crypto-checkout";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { DEFAULT_COUNTRY, SUPPORTED_COUNTRIES } from "@/lib/countries";
+import { Suspense } from "react";
+import { CheckoutContent } from "@/components/checkout/checkout-content";
 import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/lib/i18n";
 
 export const metadata = { title: "Checkout" };
 
-export default function CheckoutPage() {
+export default function CheckoutPage({
+  params
+}: {
+  params: { locale: Locale };
+}) {
+  setRequestLocale(params.locale);
   const t = useTranslations("checkout");
-  const fields = [
-    ["firstName", t("fields.firstName")],
-    ["lastName", t("fields.lastName")],
-    ["email", t("fields.email")],
-    ["phone", t("fields.phone")],
-    ["address", t("fields.address")],
-    ["city", t("fields.city")],
-    ["postal", t("fields.postal")]
-  ];
 
   return (
     <section className="container max-w-6xl py-10 pb-24 md:pb-10">
@@ -27,28 +23,9 @@ export default function CheckoutPage() {
         </h1>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <form className="h-fit rounded-[28px] border border-black/8 bg-white p-6 shadow-[0_16px_60px_rgba(0,0,0,0.08)]">
-          <h2 className="text-2xl font-black tracking-[-0.05em]">{t("shipping")}</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {fields.map(([id, label]) => (
-              <div key={id} className={id === "address" ? "grid gap-2 sm:col-span-2" : "grid gap-2"}>
-                <Label>{label}</Label>
-                <Input />
-              </div>
-            ))}
-            <label className="grid gap-2 text-sm font-bold">
-              {t("shippingCountry")}
-              <select className="h-11 rounded-full border bg-muted px-4" defaultValue={DEFAULT_COUNTRY} required>
-                {SUPPORTED_COUNTRIES.map((country) => (
-                  <option key={country}>{country}</option>
-                ))}
-              </select>
-            </label>
-          </div>
-        </form>
-        <CryptoCheckout profileUsername="your_username" />
-      </div>
+      <Suspense fallback={<div className="mt-8 h-64 rounded-[28px] bg-muted" />}>
+        <CheckoutContent />
+      </Suspense>
     </section>
   );
 }

@@ -8,12 +8,15 @@ import { Separator } from "@/components/ui/separator";
 import { products } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/lib/i18n";
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
 }
 
-export default function ProductPage({ params }: { params: { slug: string } }) {
+export default function ProductPage({ params }: { params: { locale: Locale; slug: string } }) {
+  setRequestLocale(params.locale);
   const t = useTranslations("product");
   const product = products.find((item) => item.slug === params.slug);
   if (!product) notFound();

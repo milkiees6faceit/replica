@@ -123,7 +123,11 @@
     "selectedNetwork": "Retea selectata",
     "paymentAddress": "Adresa plata",
     "amountDue": "Suma de plata",
-    "usernameUsed": "Username folosit pentru identificarea platii:"
+    "usernameUsed": "Username folosit pentru identificarea platii:",
+    "orderReview": "Verificare comanda",
+    "size": "Marime",
+    "color": "Culoare",
+    "estimatedDelivery": "Livrare estimata"
   },
   "common": {
     "profileSettings": "Setari profil",
@@ -134,7 +138,6 @@
   },
   "cart": {
     "title": "Cos",
-    "sizeDeposit": "Marime M / Plata avans / {delivery}",
     "remove": "Sterge",
     "summary": "Sumar comanda",
     "subtotal": "Subtotal",
@@ -142,7 +145,10 @@
     "shipping": "Livrare",
     "shippingCalc": "Calculata dupa adresa",
     "total": "Total de plata",
-    "checkout": "Continua la checkout"
+    "checkout": "Continua la checkout",
+    "size": "Marime",
+    "color": "Culoare",
+    "depositPayment": "Plata avans / {delivery}"
   },
   "product": {
     "estimatedDelivery": "Livrare estimata",

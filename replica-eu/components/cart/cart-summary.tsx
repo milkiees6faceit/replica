@@ -5,9 +5,8 @@ import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/lib/utils";
 import type { Locale } from "@/lib/i18n";
 
-export function CartSummary({ locale }: { locale: Locale }) {
+export function CartSummary({ locale, subtotal, queryString }: { locale: Locale; subtotal: number; queryString: string }) {
   const t = useTranslations("cart");
-  const subtotal = 320;
   const vat = 0;
   return (
     <div className="rounded-lg border bg-white p-5">
@@ -32,7 +31,7 @@ export function CartSummary({ locale }: { locale: Locale }) {
         <span>{formatPrice(subtotal + vat)}</span>
       </div>
       <Button asChild className="mt-6 w-full">
-        <Link href={`/${locale}/checkout`}>{t("checkout")}</Link>
+        <Link href={`/${locale}/checkout?${queryString}`}>{t("checkout")}</Link>
       </Button>
     </div>
   );

@@ -123,7 +123,11 @@
     "selectedNetwork": "Выбранная сеть",
     "paymentAddress": "Адрес оплаты",
     "amountDue": "К оплате",
-    "usernameUsed": "Username для идентификации платежа:"
+    "usernameUsed": "Username для идентификации платежа:",
+    "orderReview": "Проверка заказа",
+    "size": "Размер",
+    "color": "Цвет",
+    "estimatedDelivery": "Ожидаемая доставка"
   },
   "common": {
     "profileSettings": "Настройки профиля",
@@ -134,7 +138,6 @@
   },
   "cart": {
     "title": "Корзина",
-    "sizeDeposit": "Размер M / Оплата депозитом / {delivery}",
     "remove": "Удалить",
     "summary": "Сводка заказа",
     "subtotal": "Подытог",
@@ -142,7 +145,10 @@
     "shipping": "Доставка",
     "shippingCalc": "Рассчитывается после адреса",
     "total": "Итого к оплате",
-    "checkout": "Перейти к checkout"
+    "checkout": "Перейти к checkout",
+    "size": "Размер",
+    "color": "Цвет",
+    "depositPayment": "Оплата депозитом / {delivery}"
   },
   "product": {
     "estimatedDelivery": "Ожидаемая доставка",
