@@ -1,3 +1,5 @@
+import { isAdminEmail } from "@/lib/admin";
+
 type SupabaseAuthPayload = {
   nickname: string;
   email: string;
@@ -80,6 +82,7 @@ export async function registerWithSupabase(payload: SupabaseAuthPayload) {
   if ("error" in validation) return { error: validation.error, status: 400 };
 
   const { url, anonKey } = getSupabaseConfig();
+  const role = isAdminEmail(validation.data.email) ? "admin" : "user";
   const response = await fetch(`${url}/auth/v1/signup`, {
     method: "POST",
     headers: {
@@ -93,7 +96,9 @@ export async function registerWithSupabase(payload: SupabaseAuthPayload) {
       data: {
         nickname: validation.data.nickname,
         telegram_username: validation.data.telegramUsername,
-        date_of_birth: validation.data.dateOfBirth
+        date_of_birth: validation.data.dateOfBirth,
+        replica_eu_role: role,
+        is_admin: role === "admin"
       }
     })
   });
@@ -104,7 +109,7 @@ export async function registerWithSupabase(payload: SupabaseAuthPayload) {
     return { error: body.msg ?? body.error_description ?? "Registration failed.", status: response.status };
   }
 
-  return { data: body, status: 200 };
+  return { data: { ...body, replica_eu_role: role }, status: 200 };
 }
 
 export async function loginWithSupabase(payload: SupabaseAuthPayload) {
@@ -112,6 +117,7 @@ export async function loginWithSupabase(payload: SupabaseAuthPayload) {
   if ("error" in validation) return { error: validation.error, status: 400 };
 
   const { url, anonKey } = getSupabaseConfig();
+  const role = isAdminEmail(validation.data.email) ? "admin" : "user";
   const response = await fetch(`${url}/auth/v1/token?grant_type=password`, {
     method: "POST",
     headers: {
@@ -131,5 +137,5 @@ export async function loginWithSupabase(payload: SupabaseAuthPayload) {
     return { error: body.msg ?? body.error_description ?? "Login failed.", status: response.status };
   }
 
-  return { data: body, status: 200 };
+  return { data: { ...body, replica_eu_role: role }, status: 200 };
 }

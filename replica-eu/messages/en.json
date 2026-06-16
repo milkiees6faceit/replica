@@ -127,7 +127,8 @@
     "selectedNetwork": "Selected Payment Network",
     "paymentAddress": "Payment Address",
     "amountDue": "Amount Due",
-    "usernameUsed": "Username used for payment identification:"
+    "usernameUsed": "Username used for payment identification:",
+    "shippingRequired": "Complete shipping address before creating a payment order."
   },
   "common": {
     "profileSettings": "Profile settings",
@@ -247,7 +248,8 @@
     "account": "Account",
     "logout": "Log out",
     "signedOut": "Sign in to see your account details and preorder identity.",
-    "unknown": "Not set"
+    "unknown": "Not set",
+    "adminAccount": "Admin account"
   },
   "dashboard": {
     "recentLocalOrders": "Created payment orders",
@@ -257,6 +259,7 @@
     "network": "Network",
     "telegram": "Telegram",
     "amount": "Amount",
-    "delivery": "Delivery"
+    "delivery": "Delivery",
+    "contact": "Contact"
   }
 }

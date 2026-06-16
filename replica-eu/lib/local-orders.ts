@@ -8,6 +8,8 @@ export type LocalPreorder = {
   shippingCity: string;
   shippingPostal: string;
   shippingAddress: string;
+  shippingEmail: string;
+  shippingPhone: string;
   telegramUsername: string;
   username: string;
   paymentNetwork: string;

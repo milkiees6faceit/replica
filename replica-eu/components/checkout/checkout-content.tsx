@@ -107,7 +107,9 @@ export function CheckoutContent() {
             country: shipping.country,
             city: shipping.city,
             postal: shipping.postal,
-            address: shipping.address
+            address: shipping.address,
+            email: shipping.email,
+            phone: shipping.phone
           }}
         />
       </div>

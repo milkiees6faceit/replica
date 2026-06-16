@@ -127,7 +127,8 @@
     "orderReview": "Проверка заказа",
     "size": "Размер",
     "color": "Цвет",
-    "estimatedDelivery": "Ожидаемая доставка"
+    "estimatedDelivery": "Ожидаемая доставка",
+    "shippingRequired": "Заполни адрес доставки перед созданием заказа на оплату."
   },
   "common": {
     "profileSettings": "Настройки профиля",
@@ -247,7 +248,8 @@
     "account": "Аккаунт",
     "logout": "Выйти",
     "signedOut": "Войди, чтобы видеть данные аккаунта и идентификацию предзаказа.",
-    "unknown": "Не указано"
+    "unknown": "Не указано",
+    "adminAccount": "Админ аккаунт"
   },
   "dashboard": {
     "recentLocalOrders": "Созданные заказы на оплату",
@@ -257,6 +259,7 @@
     "network": "Сеть",
     "telegram": "Telegram",
     "amount": "Сумма",
-    "delivery": "Доставка"
+    "delivery": "Доставка",
+    "contact": "Контакт"
   }
 }

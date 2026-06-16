@@ -40,9 +40,10 @@ export function LocalPreorders() {
             </div>
             <Badge className="border-0 bg-[#6C5CE7] text-white">{t("pendingPayment")}</Badge>
           </CardHeader>
-          <CardContent className="grid gap-3 text-sm sm:grid-cols-2 xl:grid-cols-5">
+          <CardContent className="grid gap-3 text-sm sm:grid-cols-2 xl:grid-cols-6">
             <p><span className="font-bold text-muted-foreground">{t("variant")}:</span> {order.size} / {order.color}</p>
             <p><span className="font-bold text-muted-foreground">{t("delivery")}:</span> {order.shippingCity || "-"} / {order.shippingCountry || "-"}</p>
+            <p><span className="font-bold text-muted-foreground">{t("contact")}:</span> {order.shippingEmail || order.shippingPhone || "-"}</p>
             <p><span className="font-bold text-muted-foreground">{t("network")}:</span> {order.paymentNetwork}</p>
             <p><span className="font-bold text-muted-foreground">{t("telegram")}:</span> {order.telegramUsername}</p>
             <p><span className="font-bold text-muted-foreground">{t("amount")}:</span> {formatPrice(order.amountDue)}</p>

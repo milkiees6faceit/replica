@@ -127,7 +127,8 @@
     "orderReview": "Verificare comanda",
     "size": "Marime",
     "color": "Culoare",
-    "estimatedDelivery": "Livrare estimata"
+    "estimatedDelivery": "Livrare estimata",
+    "shippingRequired": "Completeaza adresa de livrare inainte de a crea comanda de plata."
   },
   "common": {
     "profileSettings": "Setari profil",
@@ -247,7 +248,8 @@
     "account": "Cont",
     "logout": "Iesi",
     "signedOut": "Autentifica-te pentru a vedea detaliile contului si identitatea precomenzii.",
-    "unknown": "Nesetat"
+    "unknown": "Nesetat",
+    "adminAccount": "Cont admin"
   },
   "dashboard": {
     "recentLocalOrders": "Comenzi de plata create",
@@ -257,6 +259,7 @@
     "network": "Retea",
     "telegram": "Telegram",
     "amount": "Suma",
-    "delivery": "Livrare"
+    "delivery": "Livrare",
+    "contact": "Contact"
   }
 }

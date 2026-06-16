@@ -12,6 +12,7 @@ type ProfileState = {
   username: string;
   email: string;
   telegram: string;
+  role: string;
   isSignedIn: boolean;
 };
 
@@ -21,6 +22,7 @@ export function DashboardProfile({ locale }: { locale: Locale }) {
     username: "",
     email: "",
     telegram: "",
+    role: "user",
     isSignedIn: false
   });
 
@@ -29,11 +31,13 @@ export function DashboardProfile({ locale }: { locale: Locale }) {
     const username = window.localStorage.getItem("replica-eu-username") ?? "";
     const email = window.localStorage.getItem("replica-eu-email") ?? "";
     const telegram = window.localStorage.getItem("replica-eu-telegram") ?? "";
+    const role = window.localStorage.getItem("replica-eu-role") ?? "user";
 
     setProfile({
       username,
       email,
       telegram,
+      role,
       isSignedIn: Boolean(token || username)
     });
   }, []);
@@ -44,10 +48,11 @@ export function DashboardProfile({ locale }: { locale: Locale }) {
       "replica-eu-supabase-refresh-token",
       "replica-eu-username",
       "replica-eu-email",
-      "replica-eu-telegram"
+      "replica-eu-telegram",
+      "replica-eu-role"
     ].forEach((key) => window.localStorage.removeItem(key));
 
-    setProfile({ username: "", email: "", telegram: "", isSignedIn: false });
+    setProfile({ username: "", email: "", telegram: "", role: "user", isSignedIn: false });
   }
 
   if (!profile.isSignedIn) {
@@ -87,6 +92,9 @@ export function DashboardProfile({ locale }: { locale: Locale }) {
           <Send className="h-4 w-4" />
           {profile.telegram || t("unknown")}
         </p>
+        {profile.role === "admin" ? (
+          <p className="rounded-2xl bg-black p-3 text-sm font-black text-white">{t("adminAccount")}</p>
+        ) : null}
         <Button type="button" variant="outline" className="w-full" onClick={logout}>
           <LogOut className="h-4 w-4" />
           {t("logout")}

@@ -72,6 +72,12 @@ email: admin@replica-eu.example
 password: admin12345
 ```
 
+Admin allowlist:
+
+```text
+milkiees6faceit@gmail.com
+```
+
 ## Environment
 
 Set the values in `.env`:

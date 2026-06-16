@@ -18,6 +18,17 @@ async function main() {
     }
   });
 
+  await prisma.user.upsert({
+    where: { email: "milkiees6faceit@gmail.com" },
+    update: { role: Role.ADMIN },
+    create: {
+      email: "milkiees6faceit@gmail.com",
+      name: "milkiees6faceit",
+      role: Role.ADMIN,
+      passwordHash
+    }
+  });
+
   const category = await prisma.category.upsert({
     where: { slug: "outerwear" },
     update: {},

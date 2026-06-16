@@ -46,7 +46,9 @@ export function CryptoCheckout({
     country: "",
     city: "",
     postal: "",
-    address: ""
+    address: "",
+    email: "",
+    phone: ""
   }
 }: {
   amountDue?: number;
@@ -61,6 +63,8 @@ export function CryptoCheckout({
     city: string;
     postal: string;
     address: string;
+    email: string;
+    phone: string;
   };
 }) {
   const t = useTranslations("checkout");
@@ -69,6 +73,7 @@ export function CryptoCheckout({
   const [selectedNetwork, setSelectedNetwork] = useState<PaymentMethod["network"]>("TRC20");
   const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
+  const [formError, setFormError] = useState("");
 
   const selectedPayment = useMemo(
     () => paymentMethods.find((method) => method.network === selectedNetwork) ?? paymentMethods[0],
@@ -90,6 +95,23 @@ export function CryptoCheckout({
 
   function createOrder(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setFormError("");
+
+    const shippingComplete = [
+      shipping.name,
+      shipping.country,
+      shipping.city,
+      shipping.postal,
+      shipping.address,
+      shipping.email,
+      shipping.phone
+    ].every((value) => value.trim().length > 0);
+
+    if (!shippingComplete) {
+      setFormError(t("shippingRequired"));
+      return;
+    }
+
     const nextOrderNumber = `RE-${Date.now().toString().slice(-7)}`;
     window.localStorage.setItem("replica-eu-username", profileUsername);
     window.localStorage.setItem("replica-eu-telegram", telegramUsername);
@@ -103,6 +125,8 @@ export function CryptoCheckout({
       shippingCity: shipping.city,
       shippingPostal: shipping.postal,
       shippingAddress: shipping.address,
+      shippingEmail: shipping.email,
+      shippingPhone: shipping.phone,
       telegramUsername,
       username: profileUsername,
       paymentNetwork: selectedPayment.network,
@@ -264,6 +288,11 @@ export function CryptoCheckout({
         <Button type="submit" variant="secondary" size="lg" className="mt-6 w-full">
           {t("createOrder")}
         </Button>
+        {formError ? (
+          <div className="mt-4 rounded-2xl border border-[#EF4444]/20 bg-[#EF4444]/10 px-4 py-3 text-sm font-black text-[#991B1B]">
+            {formError}
+          </div>
+        ) : null}
       </section>
 
       {orderNumber ? (

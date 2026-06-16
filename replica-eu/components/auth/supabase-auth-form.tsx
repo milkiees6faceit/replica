@@ -69,6 +69,8 @@ export function SupabaseAuthForm({ locale, mode }: { locale: Locale; mode: AuthM
       window.localStorage.setItem("replica-eu-telegram", telegramUsername);
     }
 
+    window.localStorage.setItem("replica-eu-role", body.replica_eu_role ?? "user");
+
     router.push(`/${locale}/dashboard`);
   }
 
