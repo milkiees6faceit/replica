@@ -243,6 +243,10 @@
     "hasAccount": "Already have an account?",
     "noAccount": "No account yet?",
     "goLogin": "Sign in",
-    "goRegister": "Create account"
+    "goRegister": "Create account",
+    "account": "Account",
+    "logout": "Log out",
+    "signedOut": "Sign in to see your account details and preorder identity.",
+    "unknown": "Not set"
   }
 }

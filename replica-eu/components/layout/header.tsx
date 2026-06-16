@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Home, Search, ShoppingBag, Sparkles, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { AccountButton } from "@/components/auth/account-button";
 import { Button } from "@/components/ui/button";
 import { localeNames, locales, type Locale } from "@/lib/i18n";
 
@@ -51,6 +52,7 @@ export function Header({ locale }: { locale: Locale }) {
                 <UserRound className="h-5 w-5" />
               </Link>
             </Button>
+            <AccountButton locale={locale} />
             <Button asChild variant="secondary" size="icon" aria-label="Cart">
               <Link href={`/${locale}/cart`}>
                 <ShoppingBag className="h-5 w-5" />

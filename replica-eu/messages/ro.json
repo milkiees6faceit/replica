@@ -243,6 +243,10 @@
     "hasAccount": "Ai deja cont?",
     "noAccount": "Nu ai cont?",
     "goLogin": "Autentificare",
-    "goRegister": "Creeaza cont"
+    "goRegister": "Creeaza cont",
+    "account": "Cont",
+    "logout": "Iesi",
+    "signedOut": "Autentifica-te pentru a vedea detaliile contului si identitatea precomenzii.",
+    "unknown": "Nesetat"
   }
 }

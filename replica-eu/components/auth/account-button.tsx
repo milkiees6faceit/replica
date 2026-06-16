@@ -1,0 +1,67 @@
+"use client";
+
+import Link from "next/link";
+import { LogOut, UserRound } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
+import type { Locale } from "@/lib/i18n";
+
+type AccountState = {
+  username: string;
+  email: string;
+};
+
+export function AccountButton({ locale }: { locale: Locale }) {
+  const t = useTranslations("auth");
+  const [account, setAccount] = useState<AccountState | null>(null);
+
+  useEffect(() => {
+    const username = window.localStorage.getItem("replica-eu-username") ?? "";
+    const email = window.localStorage.getItem("replica-eu-email") ?? "";
+    const token = window.localStorage.getItem("replica-eu-supabase-access-token");
+
+    if (token || username) {
+      setAccount({ username: username || "Replica EU", email });
+    }
+  }, []);
+
+  function logout() {
+    [
+      "replica-eu-supabase-access-token",
+      "replica-eu-supabase-refresh-token",
+      "replica-eu-username",
+      "replica-eu-email",
+      "replica-eu-telegram"
+    ].forEach((key) => window.localStorage.removeItem(key));
+    setAccount(null);
+  }
+
+  if (!account) {
+    return (
+      <Button asChild variant="ghost" className="hidden h-10 rounded-full px-4 font-black md:inline-flex">
+        <Link href={`/${locale}/login`}>
+          <UserRound className="h-4 w-4" />
+          {t("signIn")}
+        </Link>
+      </Button>
+    );
+  }
+
+  return (
+    <div className="hidden items-center gap-2 rounded-full border border-black/10 bg-muted p-1 md:flex">
+      <Link href={`/${locale}/dashboard`} className="flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-xs font-black">
+        <UserRound className="h-4 w-4" />
+        <span className="max-w-[110px] truncate">{account.username}</span>
+      </Link>
+      <button
+        type="button"
+        onClick={logout}
+        className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition hover:bg-black hover:text-white"
+        aria-label={t("logout")}
+      >
+        <LogOut className="h-4 w-4" />
+      </button>
+    </div>
+  );
+}

@@ -63,6 +63,8 @@ export function SupabaseAuthForm({ locale, mode }: { locale: Locale; mode: AuthM
       window.localStorage.setItem("replica-eu-username", nickname);
     }
 
+    window.localStorage.setItem("replica-eu-email", payload.email.toLowerCase());
+
     if (telegramUsername) {
       window.localStorage.setItem("replica-eu-telegram", telegramUsername);
     }

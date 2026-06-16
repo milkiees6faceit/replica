@@ -1,4 +1,5 @@
 import { orders } from "@/lib/data";
+import { DashboardProfile } from "@/components/auth/dashboard-profile";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
@@ -33,16 +34,19 @@ export default function DashboardPage({ params }: { params: { locale: Locale } }
             </Card>
           ))}
         </div>
-        <Card>
-          <CardHeader>
-            <CardTitle>{t("profileSettings")}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>{t("emailNotifications")}</p>
-            <p>{t("defaultCountry")}</p>
-            <p>{t("preferredLanguage")}</p>
-          </CardContent>
-        </Card>
+        <div className="grid gap-4">
+          <DashboardProfile locale={params.locale} />
+          <Card>
+            <CardHeader>
+              <CardTitle>{t("profileSettings")}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm text-muted-foreground">
+              <p>{t("emailNotifications")}</p>
+              <p>{t("defaultCountry")}</p>
+              <p>{t("preferredLanguage")}</p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </section>
   );
