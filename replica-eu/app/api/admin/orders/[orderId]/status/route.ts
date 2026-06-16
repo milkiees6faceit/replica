@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
 import { z } from "zod";
-import { authOptions } from "@/lib/auth";
+import { getAdminSession } from "@/lib/admin-auth";
 import { sendOrderEmail } from "@/lib/mail";
 import { nextOrderStatus } from "@/lib/preorder";
 import { prisma } from "@/lib/prisma";
@@ -11,31 +10,35 @@ const schema = z.object({
 });
 
 export async function PATCH(request: Request, { params }: { params: { orderId: string } }) {
-  const session = await getServerSession(authOptions);
-  if ((session?.user as any)?.role !== "ADMIN") {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const adminSession = await getAdminSession();
+  if (!adminSession) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const body = schema.parse(await request.json());
+  const body = schema.safeParse(await request.json());
+  if (!body.success) {
+    return NextResponse.json({ error: "Invalid order status" }, { status: 400 });
+  }
+
   const order = await prisma.order.findUnique({
     where: { id: params.orderId },
     include: { user: true }
   });
 
   if (!order) return NextResponse.json({ error: "Order not found" }, { status: 404 });
-  if (!nextOrderStatus(order.status, body.status)) {
+  if (!nextOrderStatus(order.status, body.data.status)) {
     return NextResponse.json({ error: "Invalid status transition" }, { status: 400 });
   }
 
   const updated = await prisma.order.update({
     where: { id: params.orderId },
-    data: { status: body.status }
+    data: { status: body.data.status }
   });
 
   await sendOrderEmail({
     to: order.user.email,
-    subject: `Replica EU order status: ${body.status}`,
-    html: `<p>Your preorder ${order.id} status changed to <strong>${body.status}</strong>.</p>`
+    subject: `Replica EU order status: ${body.data.status}`,
+    html: `<p>Your preorder ${order.id} status changed to <strong>${body.data.status}</strong>.</p>`
   });
 
   return NextResponse.json(updated);
