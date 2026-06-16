@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { ProductPublisher } from "@/components/admin/product-publisher";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -19,6 +20,7 @@ export function AdminShell() {
         ))}
       </aside>
       <div className="grid gap-6">
+        <ProductPublisher />
         <div className="grid gap-4 md:grid-cols-4">
           {[t("openBatches"), t("paidOrders"), t("customers"), t("verifiedSuppliers")].map((label, index) => (
             <Card key={label}>

@@ -1,4 +1,5 @@
 import { products } from "@/lib/data";
+import { getLocalProducts } from "@/lib/local-products";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -9,7 +10,8 @@ function readParam(searchParams: SearchParams | undefined, key: string) {
 
 export function getProductSelection(searchParams?: SearchParams) {
   const slug = readParam(searchParams, "product");
-  const product = products.find((item) => item.slug === slug) ?? products[0];
+  const allProducts = [...getLocalProducts(), ...products];
+  const product = allProducts.find((item) => item.slug === slug) ?? allProducts[0];
   const requestedSize = readParam(searchParams, "size");
   const requestedColor = readParam(searchParams, "color");
   const size = product.sizes.includes(requestedSize ?? "") ? requestedSize! : product.sizes[0];

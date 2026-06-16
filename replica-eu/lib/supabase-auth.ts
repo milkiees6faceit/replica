@@ -16,7 +16,7 @@ function getSupabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  if (!url || !anonKey) {
+  if (!url || !anonKey || url.includes("your-project") || anonKey.includes("replace")) {
     throw new Error("Supabase auth is not configured");
   }
 
@@ -101,12 +101,14 @@ export async function registerWithSupabase(payload: SupabaseAuthPayload) {
         is_admin: role === "admin"
       }
     })
+  }).catch(() => {
+    throw new Error("Cannot connect to Supabase. Check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.");
   });
 
   const body = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    return { error: body.msg ?? body.error_description ?? "Registration failed.", status: response.status };
+    return { error: body.msg ?? body.error_description ?? body.error ?? "Registration failed.", status: response.status };
   }
 
   return { data: { ...body, replica_eu_role: role }, status: 200 };
@@ -129,12 +131,14 @@ export async function loginWithSupabase(payload: SupabaseAuthPayload) {
       email: validation.data.email,
       password: validation.data.password
     })
+  }).catch(() => {
+    throw new Error("Cannot connect to Supabase. Check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.");
   });
 
   const body = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    return { error: body.msg ?? body.error_description ?? "Login failed.", status: response.status };
+    return { error: body.msg ?? body.error_description ?? body.error ?? "Login failed.", status: response.status };
   }
 
   return { data: { ...body, replica_eu_role: role }, status: 200 };

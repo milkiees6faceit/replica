@@ -1,5 +1,5 @@
 import { CatalogFilters } from "@/components/product/catalog-filters";
-import { ProductCard } from "@/components/product/product-card";
+import { CatalogProductGrid } from "@/components/product/catalog-product-grid";
 import { products } from "@/lib/data";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -26,11 +26,7 @@ export default function CatalogPage({ params }: { params: { locale: Locale } }) 
       </div>
       <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
         <CatalogFilters />
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} locale={params.locale} />
-          ))}
-        </div>
+        <CatalogProductGrid products={products} locale={params.locale} />
       </div>
     </section>
   );

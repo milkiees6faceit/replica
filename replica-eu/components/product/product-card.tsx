@@ -28,6 +28,7 @@ export function ProductCard({ product, locale, priority = false }: { product: Pr
   const statusText =
     product.status === "Sold out" ? t("soldOut") : product.status === "Closing soon" ? t("closing") : t("available");
   const optionQuery = `?product=${product.slug}&size=${encodeURIComponent(selectedSize)}&color=${encodeURIComponent(selectedColor)}`;
+  const productHref = product.id.startsWith("admin-") ? `/${locale}/checkout${optionQuery}` : `/${locale}/product/${product.slug}`;
 
   return (
     <motion.article
@@ -38,7 +39,7 @@ export function ProductCard({ product, locale, priority = false }: { product: Pr
       whileHover={{ y: -6 }}
       className="group flex h-full flex-col overflow-hidden rounded-[24px] border border-black/8 bg-white shadow-[0_12px_40px_rgba(0,0,0,0.06)] transition-shadow hover:shadow-[0_22px_70px_rgba(0,0,0,0.12)]"
     >
-      <Link href={`/${locale}/product/${product.slug}`} className="block">
+      <Link href={productHref} className="block">
         <div className="relative aspect-[4/5] overflow-hidden rounded-b-[22px] bg-muted">
           <Image
             src={product.images[0]}
@@ -61,7 +62,7 @@ export function ProductCard({ product, locale, priority = false }: { product: Pr
       <div className="flex flex-1 flex-col p-4">
         <div className="flex min-h-[58px] items-start justify-between gap-3">
           <div className="min-w-0">
-            <Link href={`/${locale}/product/${product.slug}`} className="text-base font-black tracking-[-0.02em] transition hover:text-[#6C5CE7]">
+            <Link href={productHref} className="text-base font-black tracking-[-0.02em] transition hover:text-[#6C5CE7]">
               {product.name}
             </Link>
             <p className="mt-1 text-sm font-medium text-muted-foreground">{product.category} / {product.gender}</p>
