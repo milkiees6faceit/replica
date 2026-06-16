@@ -247,7 +247,8 @@
     "imageUrl": "URL изображения",
     "description": "Описание",
     "publish": "Опубликовать",
-    "published": "Опубликовано:"
+    "published": "Опубликовано:",
+    "publishFallback": "Сохранено локально, потому что публикация в Supabase ещё не готова."
   },
   "auth": {
     "registerTitle": "Создай аккаунт",

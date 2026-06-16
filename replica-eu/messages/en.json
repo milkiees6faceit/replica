@@ -247,7 +247,8 @@
     "imageUrl": "Image URL",
     "description": "Description",
     "publish": "Publish",
-    "published": "Published:"
+    "published": "Published:",
+    "publishFallback": "Saved locally because Supabase publish is not ready yet."
   },
   "auth": {
     "registerTitle": "Create your account",

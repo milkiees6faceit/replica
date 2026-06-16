@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DEFAULT_COUNTRY, SUPPORTED_COUNTRIES } from "@/lib/countries";
 import { saveLocalProduct } from "@/lib/local-products";
+import { saveSupabaseProduct } from "@/lib/supabase-products";
 import { categories, type Product, type ProductStatus } from "@/lib/data";
 
 const fallbackImage = "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1200&q=80";
@@ -37,10 +38,12 @@ function colorValue(name: string) {
 export function ProductPublisher() {
   const t = useTranslations("admin");
   const [published, setPublished] = useState<Product | null>(null);
+  const [notice, setNotice] = useState("");
   const categoryOptions = useMemo(() => Array.from(new Set(["Footwear", "Tops", ...categories])), []);
 
-  function publish(event: React.FormEvent<HTMLFormElement>) {
+  async function publish(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setNotice("");
     const formData = new FormData(event.currentTarget);
     const colors = parseList(String(formData.get("colors") ?? "Black")).map((name) => ({
       name,
@@ -50,7 +53,7 @@ export function ProductPublisher() {
     const price = Number(formData.get("price") ?? 0);
     const deposit = Number(formData.get("deposit") ?? Math.round(price * 0.3));
 
-    const product = saveLocalProduct({
+    const productInput = {
       name: String(formData.get("name") ?? "").trim(),
       category: String(formData.get("category") ?? "Footwear"),
       gender: String(formData.get("gender") ?? "Unisex") as Product["gender"],
@@ -65,7 +68,19 @@ export function ProductPublisher() {
       colors: colors.length ? colors : [{ name: "Black", value: "#111111" }],
       image: String(formData.get("image") ?? "").trim() || fallbackImage,
       supplier: String(formData.get("supplier") ?? "Admin published supplier").trim()
-    });
+    };
+
+    const accessToken = window.localStorage.getItem("replica-eu-supabase-access-token") ?? "";
+    let product: Product;
+
+    try {
+      product = accessToken ? await saveSupabaseProduct(productInput, accessToken) : saveLocalProduct(productInput);
+      window.dispatchEvent(new CustomEvent("replica-eu-products-updated"));
+    } catch (error) {
+      product = saveLocalProduct(productInput);
+      const message = error instanceof Error ? error.message : t("publishFallback");
+      setNotice(`${t("publishFallback")} ${message}`);
+    }
 
     setPublished(product);
     event.currentTarget.reset();
@@ -166,6 +181,12 @@ export function ProductPublisher() {
         <div className="mt-5 flex items-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-black text-emerald-700">
           <CheckCircle2 className="h-4 w-4" />
           {t("published")} {published.name}
+        </div>
+      ) : null}
+
+      {notice ? (
+        <div className="mt-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm font-black text-amber-800">
+          {notice}
         </div>
       ) : null}
     </section>

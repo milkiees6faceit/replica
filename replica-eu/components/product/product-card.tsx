@@ -28,7 +28,7 @@ export function ProductCard({ product, locale, priority = false }: { product: Pr
   const statusText =
     product.status === "Sold out" ? t("soldOut") : product.status === "Closing soon" ? t("closing") : t("available");
   const optionQuery = `?product=${product.slug}&size=${encodeURIComponent(selectedSize)}&color=${encodeURIComponent(selectedColor)}`;
-  const productHref = product.id.startsWith("admin-") ? `/${locale}/checkout${optionQuery}` : `/${locale}/product/${product.slug}`;
+  const productHref = product.id.startsWith("admin-") || product.id.startsWith("remote-") ? `/${locale}/checkout${optionQuery}` : `/${locale}/product/${product.slug}`;
 
   return (
     <motion.article

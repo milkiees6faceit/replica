@@ -247,7 +247,8 @@
     "imageUrl": "URL imagine",
     "description": "Descriere",
     "publish": "Publica",
-    "published": "Publicat:"
+    "published": "Publicat:",
+    "publishFallback": "Salvat local deoarece publicarea in Supabase nu este inca pregatita."
   },
   "auth": {
     "registerTitle": "Creeaza contul",
