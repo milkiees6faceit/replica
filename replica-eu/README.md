@@ -13,6 +13,7 @@ Positioning: EU fashion preorder marketplace, inspired style, verified suppliers
 - Prisma + PostgreSQL
 - Stripe Checkout
 - NextAuth credentials provider
+- Supabase Auth registration/login
 - Resend email helper
 - UploadThing image upload route
 - i18n for EN, RO, RU with `next-intl`
@@ -26,6 +27,7 @@ Positioning: EU fashion preorder marketplace, inspired style, verified suppliers
 - `/[locale]/checkout`
 - `/[locale]/dashboard`
 - `/[locale]/admin`
+- `/[locale]/login`, `/[locale]/register`
 - `/[locale]/about`, `/contact`, `/faq`, `/terms`, `/privacy`, `/refund`, `/legal`
 
 ## Getting Started
@@ -77,11 +79,14 @@ Set the values in `.env`:
 - `DATABASE_URL`: PostgreSQL connection string.
 - `NEXTAUTH_SECRET`: generate with `openssl rand -base64 32`.
 - `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET`: Stripe Checkout and webhook.
+- `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase Auth signup/login.
 - `RESEND_API_KEY`: transactional emails for payment and order status updates.
 - `UPLOADTHING_SECRET` and `UPLOADTHING_APP_ID`: admin image uploads.
 
 ## Business Logic
 
+- Supabase registration requires nickname, Gmail address, password, Telegram username, and date of birth.
+- Registration is accepted only for users who are at least 14 years old.
 - Products can be preordered until their `PreorderBatch.closeAt` date.
 - After Stripe payment succeeds, order status should move from `pending` to `paid`.
 - Admin can update order status through the admin workflow: `pending`, `paid`, `ordered_from_supplier`, `shipped`, `delivered`, `cancelled`.

@@ -224,5 +224,25 @@
     "closing": "Закрывается",
     "closed": "Закрыт",
     "actionText": "Редактировать / загрузить / обновить статус"
+  },
+  "auth": {
+    "registerTitle": "Создай аккаунт",
+    "registerSubtitle": "Gmail, Telegram и проверка возраста нужны для обновлений по предзаказу.",
+    "loginTitle": "Войти",
+    "loginSubtitle": "Используй Gmail и пароль, чтобы продолжить.",
+    "nickname": "Ник",
+    "gmail": "Gmail",
+    "password": "Пароль",
+    "telegram": "Telegram username",
+    "dateOfBirth": "Дата рождения",
+    "ageHelp": "Тебе должно быть минимум 14 лет.",
+    "createAccount": "Создать аккаунт",
+    "signIn": "Войти",
+    "loading": "Подожди...",
+    "genericError": "Что-то пошло не так.",
+    "hasAccount": "Уже есть аккаунт?",
+    "noAccount": "Нет аккаунта?",
+    "goLogin": "Войти",
+    "goRegister": "Создать аккаунт"
   }
 }

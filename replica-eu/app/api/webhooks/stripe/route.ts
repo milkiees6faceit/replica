@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { sendOrderEmail } from "@/lib/mail";
 
 export async function POST(request: Request) {
@@ -11,6 +11,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing Stripe webhook configuration" }, { status: 400 });
   }
 
+  const stripe = getStripe();
   const event = stripe.webhooks.constructEvent(body, signature, process.env.STRIPE_WEBHOOK_SECRET);
 
   if (event.type === "checkout.session.completed") {

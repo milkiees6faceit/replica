@@ -75,7 +75,7 @@ export function CheckoutContent() {
             </div>
           </div>
         </section>
-        <CryptoCheckout amountDue={product.price} profileUsername="your_username" />
+        <CryptoCheckout amountDue={product.price} />
       </div>
     </div>
   );

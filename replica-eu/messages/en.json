@@ -224,5 +224,25 @@
     "closing": "Closing",
     "closed": "Closed",
     "actionText": "Edit / upload / update status"
+  },
+  "auth": {
+    "registerTitle": "Create your account",
+    "registerSubtitle": "Gmail, Telegram and age verification are required for preorder updates.",
+    "loginTitle": "Sign in",
+    "loginSubtitle": "Use your Gmail and password to continue.",
+    "nickname": "Nickname",
+    "gmail": "Gmail",
+    "password": "Password",
+    "telegram": "Telegram username",
+    "dateOfBirth": "Date of birth",
+    "ageHelp": "You must be at least 14 years old.",
+    "createAccount": "Create account",
+    "signIn": "Sign in",
+    "loading": "Please wait...",
+    "genericError": "Something went wrong.",
+    "hasAccount": "Already have an account?",
+    "noAccount": "No account yet?",
+    "goLogin": "Sign in",
+    "goRegister": "Create account"
   }
 }

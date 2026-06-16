@@ -224,5 +224,25 @@
     "closing": "Se inchide",
     "closed": "Inchis",
     "actionText": "Editeaza / incarca / actualizeaza status"
+  },
+  "auth": {
+    "registerTitle": "Creeaza contul",
+    "registerSubtitle": "Gmail, Telegram si verificarea varstei sunt necesare pentru actualizari de precomanda.",
+    "loginTitle": "Autentificare",
+    "loginSubtitle": "Foloseste Gmail si parola pentru a continua.",
+    "nickname": "Nickname",
+    "gmail": "Gmail",
+    "password": "Parola",
+    "telegram": "Username Telegram",
+    "dateOfBirth": "Data nasterii",
+    "ageHelp": "Trebuie sa ai cel putin 14 ani.",
+    "createAccount": "Creeaza cont",
+    "signIn": "Autentifica-te",
+    "loading": "Asteapta...",
+    "genericError": "Ceva nu a mers bine.",
+    "hasAccount": "Ai deja cont?",
+    "noAccount": "Nu ai cont?",
+    "goLogin": "Autentificare",
+    "goRegister": "Creeaza cont"
   }
 }

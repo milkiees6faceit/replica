@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AlertTriangle, Check, Copy, Hash, MessageCircle, WalletCards } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
@@ -33,8 +33,9 @@ const paymentMethods: PaymentMethod[] = [
   }
 ];
 
-export function CryptoCheckout({ amountDue = 320, profileUsername = "your_username" }: { amountDue?: number; profileUsername?: string }) {
+export function CryptoCheckout({ amountDue = 320, initialUsername = "" }: { amountDue?: number; initialUsername?: string }) {
   const t = useTranslations("checkout");
+  const [profileUsername, setProfileUsername] = useState(initialUsername);
   const [telegramUsername, setTelegramUsername] = useState("");
   const [selectedNetwork, setSelectedNetwork] = useState<PaymentMethod["network"]>("TRC20");
   const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
@@ -45,6 +46,13 @@ export function CryptoCheckout({ amountDue = 320, profileUsername = "your_userna
     [selectedNetwork]
   );
 
+  useEffect(() => {
+    const savedUsername = window.localStorage.getItem("replica-eu-username");
+    if (savedUsername) {
+      setProfileUsername(savedUsername);
+    }
+  }, []);
+
   async function copyAddress(address: string) {
     await navigator.clipboard.writeText(address);
     setCopiedAddress(address);
@@ -53,6 +61,7 @@ export function CryptoCheckout({ amountDue = 320, profileUsername = "your_userna
 
   function createOrder(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    window.localStorage.setItem("replica-eu-username", profileUsername);
     setOrderNumber(`RE-${Date.now().toString().slice(-7)}`);
   }
 
@@ -72,7 +81,15 @@ export function CryptoCheckout({ amountDue = 320, profileUsername = "your_userna
         <div className="mt-6 grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="replicaUsername">{t("replicaUsername")}</Label>
-            <Input id="replicaUsername" value={profileUsername} readOnly className="font-black" />
+            <Input
+              id="replicaUsername"
+              value={profileUsername}
+              onChange={(event) => setProfileUsername(event.target.value)}
+              placeholder="your_username"
+              required
+              pattern="^[A-Za-z0-9_]{3,32}$"
+              className="font-black"
+            />
             <p className="text-xs font-medium text-muted-foreground">
               {t("replicaUsernameHelp")}
             </p>
@@ -112,7 +129,7 @@ export function CryptoCheckout({ amountDue = 320, profileUsername = "your_userna
                 {t("important3")}
               </p>
               <div className="mt-4 rounded-xl bg-white/18 px-4 py-3 font-mono text-sm font-black">
-                {t("example")}: ReplicaEU: {profileUsername}
+                {t("example")}: ReplicaEU: {profileUsername || "your_username"}
               </div>
             </div>
           </div>
