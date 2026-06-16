@@ -248,7 +248,24 @@
     "description": "Description",
     "publish": "Publish",
     "published": "Published:",
-    "publishFallback": "Saved locally because Supabase publish is not ready yet."
+    "publishFallback": "Saved locally because Supabase publish is not ready yet.",
+    "releaseStatusEyebrow": "Production",
+    "releaseStatus": "Release status",
+    "ready": "Ready",
+    "needsSetup": "Needs setup",
+    "checkingRelease": "Checking release configuration",
+    "health": {
+      "appUrl": "App URL",
+      "nextAuthUrl": "NextAuth URL",
+      "nextAuthSecret": "NextAuth secret",
+      "supabaseUrl": "Supabase URL",
+      "supabasePublishableKey": "Supabase key",
+      "databaseUrl": "Database URL",
+      "stripe": "Stripe",
+      "resend": "Resend",
+      "uploadthing": "UploadThing",
+      "supabaseProductsTable": "Supabase products table"
+    }
   },
   "auth": {
     "registerTitle": "Create your account",

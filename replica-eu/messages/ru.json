@@ -248,7 +248,24 @@
     "description": "Описание",
     "publish": "Опубликовать",
     "published": "Опубликовано:",
-    "publishFallback": "Сохранено локально, потому что публикация в Supabase ещё не готова."
+    "publishFallback": "Сохранено локально, потому что публикация в Supabase ещё не готова.",
+    "releaseStatusEyebrow": "Production",
+    "releaseStatus": "Статус релиза",
+    "ready": "Готово",
+    "needsSetup": "Нужна настройка",
+    "checkingRelease": "Проверяем production-настройки",
+    "health": {
+      "appUrl": "App URL",
+      "nextAuthUrl": "NextAuth URL",
+      "nextAuthSecret": "NextAuth secret",
+      "supabaseUrl": "Supabase URL",
+      "supabasePublishableKey": "Supabase key",
+      "databaseUrl": "Database URL",
+      "stripe": "Stripe",
+      "resend": "Resend",
+      "uploadthing": "UploadThing",
+      "supabaseProductsTable": "Supabase products table"
+    }
   },
   "auth": {
     "registerTitle": "Создай аккаунт",

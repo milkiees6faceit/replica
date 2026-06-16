@@ -248,7 +248,24 @@
     "description": "Descriere",
     "publish": "Publica",
     "published": "Publicat:",
-    "publishFallback": "Salvat local deoarece publicarea in Supabase nu este inca pregatita."
+    "publishFallback": "Salvat local deoarece publicarea in Supabase nu este inca pregatita.",
+    "releaseStatusEyebrow": "Production",
+    "releaseStatus": "Status release",
+    "ready": "Gata",
+    "needsSetup": "Necesita configurare",
+    "checkingRelease": "Verificam configurarile production",
+    "health": {
+      "appUrl": "App URL",
+      "nextAuthUrl": "NextAuth URL",
+      "nextAuthSecret": "NextAuth secret",
+      "supabaseUrl": "Supabase URL",
+      "supabasePublishableKey": "Supabase key",
+      "databaseUrl": "Database URL",
+      "stripe": "Stripe",
+      "resend": "Resend",
+      "uploadthing": "UploadThing",
+      "supabaseProductsTable": "Supabase products table"
+    }
   },
   "auth": {
     "registerTitle": "Creeaza contul",
