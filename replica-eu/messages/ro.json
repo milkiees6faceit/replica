@@ -224,7 +224,13 @@
     "open": "Deschis",
     "closing": "Se inchide",
     "closed": "Inchis",
-    "actionText": "Editeaza / incarca / actualizeaza status"
+    "actionText": "Editeaza / incarca / actualizeaza status",
+    "checkingAccess": "Verificam accesul admin",
+    "adminVerified": "Acces admin confirmat",
+    "accessDenied": "Este necesar acces admin",
+    "accessDeniedCopy": "Autentifica-te cu un cont admin pentru a gestiona produse, comenzi, clienti si furnizori.",
+    "signIn": "Autentificare",
+    "goDashboard": "Dashboard"
   },
   "auth": {
     "registerTitle": "Creeaza contul",

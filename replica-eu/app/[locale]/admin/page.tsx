@@ -1,4 +1,5 @@
 import { AdminShell } from "@/components/admin/admin-shell";
+import { AdminGate } from "@/components/admin/admin-gate";
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/lib/i18n";
@@ -15,7 +16,9 @@ export default function AdminPage({ params }: { params: { locale: Locale } }) {
         <p className="text-sm uppercase tracking-[0.26em] text-muted-foreground">{t("adminEyebrow")}</p>
         <h1 className="mt-2 font-display text-5xl">{t("adminTitle")}</h1>
       </div>
-      <AdminShell />
+      <AdminGate locale={params.locale}>
+        <AdminShell />
+      </AdminGate>
     </section>
   );
 }

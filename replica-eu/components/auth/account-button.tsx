@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, UserRound } from "lucide-react";
+import { LogOut, ShieldCheck, UserRound } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -58,6 +58,15 @@ export function AccountButton({ locale }: { locale: Locale }) {
         <span className="max-w-[110px] truncate">{account.username}</span>
         {account.role === "admin" ? <span className="rounded-full bg-black px-2 py-0.5 text-[10px] text-white">ADMIN</span> : null}
       </Link>
+      {account.role === "admin" ? (
+        <Link
+          href={`/${locale}/admin`}
+          className="flex h-8 items-center gap-1.5 rounded-full bg-[#6C5CE7] px-3 text-xs font-black text-white transition hover:bg-black"
+        >
+          <ShieldCheck className="h-3.5 w-3.5" />
+          Admin
+        </Link>
+      ) : null}
       <button
         type="button"
         onClick={logout}

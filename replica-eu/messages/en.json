@@ -224,7 +224,13 @@
     "open": "Open",
     "closing": "Closing",
     "closed": "Closed",
-    "actionText": "Edit / upload / update status"
+    "actionText": "Edit / upload / update status",
+    "checkingAccess": "Checking admin access",
+    "adminVerified": "Admin access verified",
+    "accessDenied": "Admin access required",
+    "accessDeniedCopy": "Sign in with an admin account to manage products, orders, customers, and suppliers.",
+    "signIn": "Sign in",
+    "goDashboard": "Go to dashboard"
   },
   "auth": {
     "registerTitle": "Create your account",
