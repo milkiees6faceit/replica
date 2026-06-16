@@ -1,13 +1,17 @@
+import { useTranslations } from "next-intl";
+
 export const metadata = { title: "Privacy Policy" };
 
 export default function PrivacyPage() {
+  const t = useTranslations("pages");
+
   return (
     <section className="container max-w-3xl py-12">
-      <h1 className="font-display text-5xl">Privacy Policy</h1>
+      <h1 className="font-display text-5xl">{t("privacyTitle")}</h1>
       <div className="mt-6 space-y-4 leading-7 text-muted-foreground">
-        <p>Replica EU stores account, order, shipping, and payment reference data needed to operate preorders.</p>
-        <p>Payment card data is handled by Stripe. Email notifications are sent through Resend.</p>
-        <p>Customers may request access, correction, or deletion subject to legal retention requirements.</p>
+        <p>{t("privacyP1")}</p>
+        <p>{t("privacyP2")}</p>
+        <p>{t("privacyP3")}</p>
       </div>
     </section>
   );

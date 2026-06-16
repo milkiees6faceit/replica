@@ -1,17 +1,20 @@
+import { useTranslations } from "next-intl";
+
 export const metadata = { title: "FAQ" };
 
-const faqs = [
-  ["Is Replica EU selling counterfeit goods?", "No. Listings must be independent inspired-style products or explicitly authorized goods."],
-  ["When is my preorder confirmed?", "After Stripe payment succeeds, the order status changes from pending to paid."],
-  ["Can I cancel?", "Cancellation windows depend on whether the supplier batch has already closed."],
-  ["Where do you ship?", "The checkout supports selected countries only, with Germany selected by default."]
-];
-
 export default function FAQPage() {
+  const t = useTranslations("faq");
+  const faqs = [
+    [t("q1"), t("a1")],
+    [t("q2"), t("a2")],
+    [t("q3"), t("a3")],
+    [t("q4"), t("a4")]
+  ];
+
   return (
     <section className="container max-w-3xl py-12">
       <p className="text-sm uppercase tracking-[0.26em] text-muted-foreground">FAQ</p>
-      <h1 className="mt-3 font-display text-5xl">Common questions</h1>
+      <h1 className="mt-3 font-display text-5xl">{t("title")}</h1>
       <div className="mt-8 divide-y rounded-lg border bg-white">
         {faqs.map(([question, answer]) => (
           <div key={question} className="p-6">

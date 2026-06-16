@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Clock3, MapPin, ShoppingBag, Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
@@ -18,8 +20,14 @@ function hypeBadge(product: Product) {
 }
 
 export function ProductCard({ product, locale, priority = false }: { product: Product; locale: Locale; priority?: boolean }) {
+  const t = useTranslations("productCard");
+  const [selectedSize, setSelectedSize] = useState(product.sizes[0] ?? "");
+  const [selectedColor, setSelectedColor] = useState(product.colors[0]?.name ?? "");
   const badge = hypeBadge(product);
   const disabled = product.status === "Sold out";
+  const statusText =
+    product.status === "Sold out" ? t("soldOut") : product.status === "Closing soon" ? t("closing") : t("available");
+  const optionQuery = `?product=${product.slug}&size=${encodeURIComponent(selectedSize)}&color=${encodeURIComponent(selectedColor)}`;
 
   return (
     <motion.article
@@ -65,15 +73,60 @@ export function ProductCard({ product, locale, priority = false }: { product: Pr
             <MapPin className="h-3 w-3" /> {product.country}
           </Badge>
           <Badge variant="outline" className="gap-1 rounded-full border-black/10 bg-muted font-bold">
-            <Clock3 className="h-3 w-3" /> {product.status}
+            <Clock3 className="h-3 w-3" /> {statusText}
           </Badge>
+        </div>
+        <div className="mt-3 grid min-h-[118px] content-start gap-3">
+          <div>
+            <div className="mb-2 flex items-center justify-between text-xs font-black uppercase tracking-[0.16em] text-muted-foreground">
+              <span>{t("size")}</span>
+              <span className="text-black">{selectedSize}</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {product.sizes.slice(0, 5).map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  aria-pressed={selectedSize === size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`h-8 min-w-9 rounded-full px-3 text-xs font-black transition ${
+                    selectedSize === size ? "bg-black text-white shadow-[0_10px_24px_rgba(0,0,0,0.18)]" : "bg-muted text-black hover:bg-black/10"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div className="mb-2 flex items-center justify-between text-xs font-black uppercase tracking-[0.16em] text-muted-foreground">
+              <span>{t("color")}</span>
+              <span className="truncate pl-3 text-black">{selectedColor}</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {product.colors.map((color) => (
+                <button
+                  key={color.name}
+                  type="button"
+                  aria-label={`${t("color")}: ${color.name}`}
+                  aria-pressed={selectedColor === color.name}
+                  title={color.name}
+                  onClick={() => setSelectedColor(color.name)}
+                  className={`h-8 w-8 rounded-full border border-black/10 transition hover:scale-105 ${
+                    selectedColor === color.name ? "ring-2 ring-[#6C5CE7] ring-offset-2" : ""
+                  }`}
+                  style={{ backgroundColor: color.value }}
+                />
+              ))}
+            </div>
+          </div>
         </div>
         <div className="mt-auto grid grid-cols-[1fr_auto] gap-2 pt-4">
           <Button disabled={disabled} asChild={!disabled} variant="secondary" className="h-12">
-            {disabled ? <span>Sold out</span> : <Link href={`/${locale}/checkout`}><Zap className="h-4 w-4" /> Quick buy</Link>}
+            {disabled ? <span>{t("soldOut")}</span> : <Link href={`/${locale}/checkout${optionQuery}`}><Zap className="h-4 w-4" /> {t("quickBuy")}</Link>}
           </Button>
           <Button disabled={disabled} asChild={!disabled} variant="outline" size="icon" aria-label="Add to cart">
-            {disabled ? <ShoppingBag className="h-4 w-4" /> : <Link href={`/${locale}/cart`}><ShoppingBag className="h-4 w-4" /></Link>}
+            {disabled ? <ShoppingBag className="h-4 w-4" /> : <Link href={`/${locale}/cart${optionQuery}`}><ShoppingBag className="h-4 w-4" /></Link>}
           </Button>
         </div>
       </div>

@@ -7,12 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { products } from "@/lib/data";
 import { formatPrice } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
 }
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
+  const t = useTranslations("product");
   const product = products.find((item) => item.slug === params.slug);
   if (!product) notFound();
 
@@ -41,13 +43,13 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           <div className="grid gap-4 text-sm">
             <div className="flex items-center justify-between gap-4">
               <span className="flex items-center gap-2 text-muted-foreground">
-                <CalendarDays className="h-4 w-4" /> Estimated delivery
+                <CalendarDays className="h-4 w-4" /> {t("estimatedDelivery")}
               </span>
               <span>{product.estimatedDelivery}</span>
             </div>
             <div className="flex items-center justify-between gap-4">
               <span className="flex items-center gap-2 text-muted-foreground">
-                <PackageCheck className="h-4 w-4" /> Supplier
+                <PackageCheck className="h-4 w-4" /> {t("supplier")}
               </span>
               <span>{product.supplier}</span>
             </div>
@@ -55,21 +57,20 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           <Separator className="my-6" />
           <div className="space-y-2">
             <div className="flex justify-between text-xl font-black tracking-[-0.04em]">
-              <span>Preorder price</span>
+              <span>{t("preorderPrice")}</span>
               <span>{formatPrice(product.price)}</span>
             </div>
             <div className="flex justify-between text-sm font-bold text-muted-foreground">
-              <span>Deposit option</span>
+              <span>{t("depositOption")}</span>
               <span>{formatPrice(product.deposit)}</span>
             </div>
           </div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <Button disabled={product.status === "Sold out"} variant="secondary" className="h-14">Pay deposit</Button>
-            <Button disabled={product.status === "Sold out"} variant="outline" className="h-14">Pay full</Button>
+            <Button disabled={product.status === "Sold out"} variant="secondary" className="h-14">{t("payDeposit")}</Button>
+            <Button disabled={product.status === "Sold out"} variant="outline" className="h-14">{t("payFull")}</Button>
           </div>
           <p className="mt-5 rounded-[20px] bg-muted p-4 text-xs font-medium leading-5 text-muted-foreground">
-            Disclaimer: this item is not affiliated with third-party brands unless explicitly stated. Replica EU does not
-            sell counterfeit goods.
+            {t("disclaimer")}
           </p>
         </aside>
       </div>

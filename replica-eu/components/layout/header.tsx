@@ -61,10 +61,10 @@ export function Header({ locale }: { locale: Locale }) {
       </header>
       <nav className="fixed inset-x-3 bottom-3 z-50 grid grid-cols-4 rounded-[28px] border border-black/10 bg-white/92 p-2 shadow-[0_18px_60px_rgba(0,0,0,0.16)] backdrop-blur-xl md:hidden">
         {[
-          [Home, "Home", `/${locale}`],
-          [Search, "Shop", `/${locale}/catalog`],
-          [Sparkles, "Drops", `/${locale}/catalog?status=limited`],
-          [ShoppingBag, "Bag", `/${locale}/cart`]
+          [Home, t("home"), `/${locale}`],
+          [Search, t("shop"), `/${locale}/catalog`],
+          [Sparkles, t("drops"), `/${locale}/catalog?status=limited`],
+          [ShoppingBag, t("bag"), `/${locale}/cart`]
         ].map(([Icon, label, href]) => (
           <Link key={label as string} href={href as string} className="flex flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] font-black text-muted-foreground active:bg-muted">
             <Icon className="h-5 w-5" />

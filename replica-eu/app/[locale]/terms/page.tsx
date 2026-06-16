@@ -1,13 +1,17 @@
+import { useTranslations } from "next-intl";
+
 export const metadata = { title: "Terms" };
 
 export default function TermsPage() {
+  const t = useTranslations("pages");
+
   return (
     <section className="container max-w-3xl py-12">
-      <h1 className="font-display text-5xl">Terms of Service</h1>
+      <h1 className="font-display text-5xl">{t("termsTitle")}</h1>
       <div className="mt-6 space-y-4 leading-7 text-muted-foreground">
-        <p>Replica EU facilitates preorder transactions between customers and verified suppliers.</p>
-        <p>Preorder availability is limited by batch closing dates, supplier capacity, and payment confirmation.</p>
-        <p>Users must provide accurate shipping and contact information for EU delivery.</p>
+        <p>{t("termsP1")}</p>
+        <p>{t("termsP2")}</p>
+        <p>{t("termsP3")}</p>
       </div>
     </section>
   );

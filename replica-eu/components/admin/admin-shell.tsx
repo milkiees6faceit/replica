@@ -1,9 +1,11 @@
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const sections = ["Products", "Categories", "Orders", "Customers", "Batches", "Suppliers", "Uploads"];
-
 export function AdminShell() {
+  const t = useTranslations("admin");
+  const sections = [t("products"), t("categories"), t("orders"), t("customers"), t("batches"), t("suppliers"), t("uploads")];
+
   return (
     <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
       <aside className="rounded-lg border bg-white p-3">
@@ -18,7 +20,7 @@ export function AdminShell() {
       </aside>
       <div className="grid gap-6">
         <div className="grid gap-4 md:grid-cols-4">
-          {["Open batches", "Paid orders", "Customers", "Verified suppliers"].map((label, index) => (
+          {[t("openBatches"), t("paidOrders"), t("customers"), t("verifiedSuppliers")].map((label, index) => (
             <Card key={label}>
               <CardHeader className="p-4 pb-2">
                 <CardTitle className="text-base">{label}</CardTitle>
@@ -29,34 +31,34 @@ export function AdminShell() {
         </div>
         <Card>
           <CardHeader>
-            <CardTitle>Preorder operations</CardTitle>
+            <CardTitle>{t("operations")}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[720px] text-sm">
                 <thead className="border-b text-left text-muted-foreground">
                   <tr>
-                    <th className="py-3">Product</th>
-                    <th>Batch close</th>
-                    <th>Supplier</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th className="py-3">{t("product")}</th>
+                    <th>{t("batchClose")}</th>
+                    <th>{t("supplier")}</th>
+                    <th>{t("status")}</th>
+                    <th>{t("actions")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    ["Atelier wool coat", "2027-01-28", "Verified Bucharest atelier", "Open"],
-                    ["Minimal leather loafer", "2027-01-05", "Verified Veneto supplier", "Closing"],
-                    ["Cashmere blend knit", "2026-12-20", "Verified Porto knit studio", "Closed"]
+                    ["Atelier wool coat", "2027-01-28", "Verified Bucharest atelier", t("open")],
+                    ["Minimal leather loafer", "2027-01-05", "Verified Veneto supplier", t("closing")],
+                    ["Cashmere blend knit", "2026-12-20", "Verified Barcelona knit studio", t("closed")]
                   ].map((row) => (
                     <tr key={row[0]} className="border-b last:border-0">
                       {row.slice(0, 3).map((cell) => (
                         <td key={cell} className="py-4">{cell}</td>
                       ))}
                       <td>
-                        <Badge variant={row[3] === "Closed" ? "muted" : "secondary"}>{row[3]}</Badge>
+                        <Badge variant={row[3] === t("closed") ? "muted" : "secondary"}>{row[3]}</Badge>
                       </td>
-                      <td className="text-muted-foreground">Edit / upload / update status</td>
+                      <td className="text-muted-foreground">{t("actionText")}</td>
                     </tr>
                   ))}
                 </tbody>

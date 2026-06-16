@@ -14,6 +14,7 @@ export type Product = {
   description: string;
   estimatedDelivery: string;
   sizes: string[];
+  colors: { name: string; value: string }[];
   images: string[];
   supplier: string;
 };
@@ -36,6 +37,11 @@ export const products: Product[] = [
       "A clean longline coat in a structured wool blend, designed for an inspired city wardrobe without third-party branding.",
     estimatedDelivery: "Late February 2027",
     sizes: ["XS", "S", "M", "L"],
+    colors: [
+      { name: "Black", value: "#111111" },
+      { name: "Oat", value: "#c8bca8" },
+      { name: "Graphite", value: "#4b4b4b" }
+    ],
     images: [
       "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80"
@@ -57,6 +63,10 @@ export const products: Product[] = [
       "Low-profile loafers from a small EU workshop with smooth leather finish and understated hardware-free detailing.",
     estimatedDelivery: "Early March 2027",
     sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: [
+      { name: "Black", value: "#111111" },
+      { name: "Espresso", value: "#3b241a" }
+    ],
     images: [
       "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=1200&q=80"
@@ -78,6 +88,11 @@ export const products: Product[] = [
       "Relaxed tailoring with a fluid drape, made for travel days, work dinners, and refined capsule wardrobes.",
     estimatedDelivery: "Mid February 2027",
     sizes: ["XS", "S", "M", "L", "XL"],
+    colors: [
+      { name: "Stone", value: "#d6d1c4" },
+      { name: "Black", value: "#111111" },
+      { name: "Grey", value: "#8c8c8c" }
+    ],
     images: [
       "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=80"
@@ -99,6 +114,11 @@ export const products: Product[] = [
       "Dense gauge knitwear with a soft hand feel, neutral tone, and no visible brand marks.",
     estimatedDelivery: "Batch closed",
     sizes: ["S", "M", "L", "XL"],
+    colors: [
+      { name: "Charcoal", value: "#2f2f2f" },
+      { name: "Cream", value: "#e8dfc8" },
+      { name: "Navy", value: "#1f2a44" }
+    ],
     images: [
       "https://images.unsplash.com/photo-1516826957135-700dedea698c?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1506629905607-d405d7d3b0d2?auto=format&fit=crop&w=1200&q=80"

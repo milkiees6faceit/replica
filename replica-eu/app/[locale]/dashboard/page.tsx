@@ -1,13 +1,16 @@
 import { orders } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 export const metadata = { title: "Dashboard" };
 
 export default function DashboardPage() {
+  const t = useTranslations("common");
+
   return (
     <section className="container py-10">
-      <h1 className="font-display text-5xl">My preorders</h1>
+      <h1 className="font-display text-5xl">{t("myPreorders")}</h1>
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_320px]">
         <div className="grid gap-4">
           {orders.map((order) => (
@@ -29,12 +32,12 @@ export default function DashboardPage() {
         </div>
         <Card>
           <CardHeader>
-            <CardTitle>Profile settings</CardTitle>
+            <CardTitle>{t("profileSettings")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 text-sm text-muted-foreground">
-            <p>Email notifications: enabled</p>
-            <p>Default country: Germany</p>
-            <p>Preferred language: English</p>
+            <p>{t("emailNotifications")}</p>
+            <p>{t("defaultCountry")}</p>
+            <p>{t("preferredLanguage")}</p>
           </CardContent>
         </Card>
       </div>
