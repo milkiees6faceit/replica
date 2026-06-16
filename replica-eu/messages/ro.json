@@ -264,6 +264,7 @@
     "signIn": "Autentifica-te",
     "loading": "Asteapta...",
     "genericError": "Ceva nu a mers bine.",
+    "confirmEmail": "Cont creat. Verifica {email} si confirma emailul inainte de autentificare.",
     "hasAccount": "Ai deja cont?",
     "noAccount": "Nu ai cont?",
     "goLogin": "Autentificare",

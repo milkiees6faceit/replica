@@ -264,6 +264,7 @@
     "signIn": "Войти",
     "loading": "Подожди...",
     "genericError": "Что-то пошло не так.",
+    "confirmEmail": "Аккаунт создан. Проверь {email} и подтверди email перед входом.",
     "hasAccount": "Уже есть аккаунт?",
     "noAccount": "Нет аккаунта?",
     "goLogin": "Войти",

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { AlertCircle, AtSign, Calendar, Lock, Mail, Send, UserRound } from "lucide-react";
+import { AlertCircle, AtSign, Calendar, CheckCircle2, Lock, Mail, Send, UserRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,11 +17,13 @@ export function SupabaseAuthForm({ locale, mode }: { locale: Locale; mode: AuthM
   const t = useTranslations("auth");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const isRegister = mode === "register";
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
+    setSuccess("");
     setIsLoading(true);
 
     const formData = new FormData(event.currentTarget);
@@ -43,6 +45,13 @@ export function SupabaseAuthForm({ locale, mode }: { locale: Locale; mode: AuthM
     if (!response.ok) {
       setError(body.error ?? t("genericError"));
       setIsLoading(false);
+      return;
+    }
+
+    if (isRegister && !body.access_token) {
+      setSuccess(t("confirmEmail", { email: payload.email.toLowerCase() }));
+      setIsLoading(false);
+      event.currentTarget.reset();
       return;
     }
 
@@ -137,6 +146,13 @@ export function SupabaseAuthForm({ locale, mode }: { locale: Locale; mode: AuthM
         <div className="mt-5 flex gap-2 rounded-2xl border border-[#EF4444]/20 bg-[#EF4444]/10 p-4 text-sm font-bold text-[#991B1B]">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           {error}
+        </div>
+      ) : null}
+
+      {success ? (
+        <div className="mt-5 flex gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-bold text-emerald-700">
+          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+          {success}
         </div>
       ) : null}
 

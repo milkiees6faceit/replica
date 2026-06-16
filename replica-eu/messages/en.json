@@ -264,6 +264,7 @@
     "signIn": "Sign in",
     "loading": "Please wait...",
     "genericError": "Something went wrong.",
+    "confirmEmail": "Account created. Check {email} and confirm your email before signing in.",
     "hasAccount": "Already have an account?",
     "noAccount": "No account yet?",
     "goLogin": "Sign in",
